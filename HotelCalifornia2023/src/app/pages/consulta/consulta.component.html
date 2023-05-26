@@ -56,14 +56,15 @@
                         <div class="form-floating">
                             <form  autocomplete="off" [formGroup]="consultaForm" (ngSubmit)="onConsulta()">
                                 <div class="row r1">
-                                    <div class="mb-3 col-lg-6 col-md-12">
+                                    <div class="mb-2 col-lg-5 col-md-12">
                                         <input type="text" name="nombre" class="form-control" id="contactoNombre" aria-describedby=" emailHelp" placeholder="Ingresa tu nombre" required #nombre formControlName="nombre">
                                         <label for="contactoNombre" class="form-label text-start">Nombre</label>
                                         <div class="text-danger" *ngIf="consultaForm.get('nombre')!.invalid && (consultaForm.get('nombre')!.touched || consultaForm.get('nombre')!.dirty)">
                                             El nombre es requerido.
                                         </div>
                                     </div>
-                                    <div class="mb-3 col-lg-6 col-md-12">
+                                    <div class="col-lg-1 col-md-0"></div>
+                                    <div class="mb-2 col-lg-5 col-md-12">
                                         <input type="email" class="form-control" id="contactoEmail" aria-describedby="emailHelp" placeholder="Ingresa tu email" required #email formControlName="email">
                                         <label for="exampleInputEmail1" class="form-label text-start">Correo
                                             electrónico</label>
