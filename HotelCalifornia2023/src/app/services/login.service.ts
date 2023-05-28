@@ -34,4 +34,10 @@ export class LoginService {
 
   }
 
+  logout(): void {
+    this.currentUserData.next({ clienteId: 0, email: '' });
+    this.currentUserLoginOn.next(false);
+  }
+
+
 }
