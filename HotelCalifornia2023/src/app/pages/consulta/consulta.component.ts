@@ -37,7 +37,8 @@ consultaEnviada: boolean = false;
   ngOnInit(): void {
   }
 
-  onConsulta(): void {
+  onConsulta(event: Event): void {
+    event.preventDefault;
     if (this.consultaForm.valid){
       console.log("Llamar al servicio de Consulta");
       
