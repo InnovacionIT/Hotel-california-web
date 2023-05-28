@@ -54,7 +54,7 @@
                     </div>
                     <div class="row cform">
                         <div class="form-floating">
-                            <form  autocomplete="off" [formGroup]="consultaForm" (ngSubmit)="onConsulta()">
+                            <form  autocomplete="off" [formGroup]="consultaForm" (ngSubmit)="onConsulta($event)">
                                 <div class="row r1">
                                     <div class="mb-2 col-lg-5 col-md-12">
                                         <input type="text" name="nombre" class="form-control" id="contactoNombre" aria-describedby=" emailHelp" placeholder="Ingresa tu nombre" required #nombre formControlName="nombre">
@@ -65,7 +65,7 @@
                                     </div>
                                     <div class="col-lg-1 col-md-0"></div>
                                     <div class="mb-2 col-lg-5 col-md-12">
-                                        <input type="email" class="form-control" id="contactoEmail" aria-describedby="emailHelp" placeholder="Ingresa tu email" required #email formControlName="email">
+                                        <input type="email" class="form-control" id="contactoEmail" aria-describedby="emailHelp" placeholder="Ingresa tu email" required #email formControlName="email" >
                                         <label for="exampleInputEmail1" class="form-label text-start">Correo
                                             electrónico</label>
                                         <div class="text-danger" *ngIf="consultaForm.get('email')!.invalid && (consultaForm.get('email')!.touched || consultaForm.get('email')!.dirty)">
