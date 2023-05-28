@@ -29,6 +29,6 @@ th{
 color: var(--color-claro);
 }
 .table{ 
-width: 80%;
-margin:0 auto;
-}
+  width: 80%;
+  margin:0 auto;
+  }
