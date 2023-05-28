@@ -62,7 +62,8 @@ body {
   }
 
   /*recuadro verde*/
-  
+
+
 #formulario {
     color:var(--color-claro);
     background-color: var(--color-principal);
@@ -99,7 +100,7 @@ a:hover {
  .form-control:focus {
     color: var(--color-oscuro);
     background-color:var(--resaltador);
-    border-color: transparent;
+    /* border-color: transparent; */
     outline: 0;
     box-shadow: var(--shadow-complementario);
 }
@@ -116,7 +117,7 @@ label {
 
 .form-signin input {
     /* width:10rem; */
-    border: none;
+    /* border: none; */
     border-bottom: 2px solid var(--color-claro);
     background-color: transparent;
     border-radius: 0;
