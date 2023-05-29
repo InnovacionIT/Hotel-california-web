@@ -117,7 +117,7 @@ label {
 
 .form-signin input {
     /* width:10rem; */
-    /* border: none; */
+     border: none; 
     border-bottom: 2px solid var(--color-claro);
     background-color: transparent;
     border-radius: 0;
@@ -178,6 +178,16 @@ input[type='checkbox'] {
     
 }
 
+
+.ng-valid:not(form).ng-touched {
+    border-left: 5px solid #42A948;
+    
+  }
+  
+  .ng-invalid:not(form).ng-touched {
+    border-left: 5px solid #a94442;
+       
+  }
 /* #usuario-incorrecto{
     display: none;
 }
