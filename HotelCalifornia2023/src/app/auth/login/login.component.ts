@@ -13,7 +13,7 @@ export class LoginComponent implements OnInit {
 
   loginForm=this.formBuilder.group({
     usuario:['camillosoy@gmail.com', [Validators.required, Validators.email]],
-    contrasena:['' ,Validators.required]
+    password:['' ,Validators.required]
   })
 
   
@@ -24,8 +24,8 @@ constructor(private formBuilder:FormBuilder, private router:Router, private logi
   get usuario(){
     return this.loginForm.controls.usuario;
   }
-  get contrasena() {
-    return this.loginForm.controls.contrasena;
+  get password() {
+    return this.loginForm.controls.password;
   }
   login(){
     if(this.loginForm.valid){
