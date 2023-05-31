@@ -26,11 +26,11 @@
                     <span id="usuario-sin-ingresar" class="errorDato"> Ingrese un usuario </span> -->
                 </div>
                 <div class="mb-3 text-start">
-                    <input formControlName="contrasena" type="password" id="floatingPassword" class="form-control"
+                    <input formControlName="password" type="password" id="floatingPassword" class="form-control"
                     placeholder="Ingrese su contraseña" required>
-                        <div *ngIf="contrasena.invalid && (contrasena.dirty || contrasena.touched)"
+                        <div *ngIf="password.invalid && (password.dirty || password.touched)"
                         class="text-danger">
-                        <div *ngIf="contrasena.errors?.['required']">
+                        <div *ngIf="password.errors?.['required']">
                         La contraseña es requerida.
                         </div>
                         </div>
