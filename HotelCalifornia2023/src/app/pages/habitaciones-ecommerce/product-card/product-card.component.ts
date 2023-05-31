@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 //import { Reserva } from '../../../interface/reserva.interface';
-import { Habitacion } from '../../../models/habitacion'
+import { Habitacion } from '../../../models/habitacion';
+import { ReservasComponent } from '../../vista-interna/reservas/reservas.component'; // Importa ReservasComponent
 
 @Component({
   selector: 'app-product-card',
@@ -13,7 +14,7 @@ export class ProductCardComponent implements OnInit {
   public leaveDate: string;
   public selectedStartDate: string;
   public selectedLeaveDate: string;
-
+  public clienteId: number=1; // Reemplazar con el valor correspondiente, se inicializa en 1 para que no marque error
 
   constructor() {
     this.misHabitaciones =[
@@ -31,15 +32,55 @@ export class ProductCardComponent implements OnInit {
     this.leaveDate = sevenDaysLater.toISOString().split('T')[0]; // Convertir fecha a formato YYYY-MM-DD
     this.selectedStartDate = this.startDate;
     this.selectedLeaveDate = this.leaveDate;
-
-
   }
 
   ngOnInit(): void {
+    this.startDate = this.formatDate(new Date()); // Inicializar con la fecha actual
+    this.leaveDate = this.formatDate(this.calculateLeaveDate()); // Inicializar con la fecha de salida
+
+    // Reemplaza con el valor correcto para clienteId
+    this.clienteId = 1;
+  }
+
+  calculateLeaveDate(): Date {
+    const startDate = new Date(this.startDate);
+    const leaveDate = new Date(startDate);
+    leaveDate.setDate(leaveDate.getDate() + 7); // Agregar 7 días a la fecha de inicio
+    return leaveDate;
+  }
+
+  formatDate(date: Date): string {
+    // Lógica para formatear la fecha en el formato deseado (YYYY-MM-DD)
+    return `${date.getFullYear()}-${(date.getMonth() + 1)
+      .toString()
+      .padStart(2, '0')}-${date.getDate().toString().padStart(2, '0')}`;
+  }
+
+  getDateDifference(): number {
+    const start = new Date(this.startDate);
+    const leave = new Date(this.leaveDate);
+    const diff = Math.abs(leave.getTime() - start.getTime());
+    const diffDays = Math.ceil(diff / (1000 * 60 * 60 * 24));
+    return diffDays;
   }
 
   confirmReservation(habitacionId: number) {
-    // Lógica para confirmar la reserva utilizando el habitacionId y las fechas seleccionadas
-  }
+    const clienteId = this.clienteId;
+    const habitacion = this.misHabitaciones.find(h => h.habitacionId === habitacionId);
+    const fechaReserva = new Date();
 
+    const reserva = {
+      clienteId: clienteId,
+      habitacionId: habitacionId,
+      fechaReserva: fechaReserva
+    };
+
+    this.createReservation(reserva);
+    console.log('Reserva enviada:', reserva);
+  }
+  createReservation(reserva: any) {
+    // Lógica para crear la reserva
+    console.log('Creando reserva:', reserva);
+
+}
 }

@@ -36,6 +36,10 @@
           <div class="roomAvail" *ngIf="habitacion.disponible !== undefined"> {{ habitacion.disponible ? 'Disponible' : 'No disponible' }} </div>  <!--  Verificación de disponibilidad reactiva -->
           <div class="rommPrice"> Precio diario {{ habitacion.precio}} por persona</div>
 
+          <div class="reservationPrice">
+            Precio Final de la Reserva: {{ habitacion.precio * getDateDifference() }} por persona
+          </div>
+
           <a href="#" class="btn btnCalifornia" (click)="confirmReservation(habitacion.habitacionId)">Confirmar</a>  <!--  Llamada a la función confirmReservation con el id de la habitación -->
 
         </div>
