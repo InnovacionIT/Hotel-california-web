@@ -9,12 +9,12 @@ import { User } from './user';
 })
 export class LoginService {
   currentUserLoginOn : BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
-  currentUserData : BehaviorSubject<User> = new BehaviorSubject<User>({clienteId:0, email:''});
+  currentUserData : BehaviorSubject<User> = new BehaviorSubject<User>({clienteId:0, usuario:''});
 
   constructor(private http: HttpClient) {}
 
   login(_credentials:LoginRequest):Observable<User>{
-    return this.http.get<User>('././assets/clientes.json').pipe(
+    return this.http.get<User>('http://localhost:8000/api/clientes/').pipe(
       tap(userData => {
         this.currentUserData.next(userData);
         this.currentUserLoginOn.next(true);
@@ -33,5 +33,11 @@ export class LoginService {
   return this.currentUserLoginOn.asObservable();
 
   }
+
+  logout(): void {
+    this.currentUserData.next({ clienteId: 0, usuario: '' });
+    this.currentUserLoginOn.next(false);
+  }
+
 
 }

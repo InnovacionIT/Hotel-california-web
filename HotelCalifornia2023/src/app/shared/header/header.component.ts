@@ -8,8 +8,10 @@ import { User } from 'src/app/services/user';
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent implements OnInit {
-  userLoginOn:boolean=false;
+  userLoginOn:boolean=true;
   userData?:User;
+  userName: string = '';
+
   constructor(private loginService:LoginService) { }
 
   ngOnInit(): void {
@@ -21,8 +23,13 @@ export class HeaderComponent implements OnInit {
     this.loginService.currentUserData.subscribe({
       next:(userData)=>{
       this.userData=userData;
+      this.userName = userData ? userData.name || '' : '';
       }
     })
+  }
+
+  logout(): void {
+    this.loginService.logout();
   }
 
 }

@@ -12,19 +12,20 @@ import { LoginRequest } from 'src/app/services/loginRequest';
 export class LoginComponent implements OnInit {
 
   loginForm=this.formBuilder.group({
-    email:['camillosoy@gmail.com', [Validators.required, Validators.email]],
-    password:['' ,Validators.required]
+    usuario:['camillosoy@gmail.com', [Validators.required, Validators.email]],
+    contrasena:['' ,Validators.required]
   })
+
   
 constructor(private formBuilder:FormBuilder, private router:Router, private loginService:LoginService) { }
 
   ngOnInit(): void {
   }
-  get email(){
-    return this.loginForm.controls.email;
+  get usuario(){
+    return this.loginForm.controls.usuario;
   }
-  get password() {
-    return this.loginForm.controls.password;
+  get contrasena() {
+    return this.loginForm.controls.contrasena;
   }
   login(){
     if(this.loginForm.valid){
@@ -32,6 +33,7 @@ constructor(private formBuilder:FormBuilder, private router:Router, private logi
         next:(userData)=> {
           console.log(userData);
         },
+        
         error:(errorData) => {
           console.error(errorData);
           

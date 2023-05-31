@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'Facturacion',
     'GestionReservas',
     'GestionUsuarios',
+    'rest_framework',
 ]
 
 MIDDLEWARE = [
