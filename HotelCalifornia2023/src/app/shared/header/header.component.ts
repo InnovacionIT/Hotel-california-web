@@ -23,7 +23,7 @@ export class HeaderComponent implements OnInit {
     this.loginService.currentUserData.subscribe({
       next:(userData)=>{
       this.userData=userData;
-      this.userName = userData ? userData.name || '' : '';
+      this.userName = userData ? userData.nombre || '' : '';
       }
     })
   }
