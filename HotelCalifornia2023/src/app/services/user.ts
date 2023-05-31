@@ -1,7 +1,7 @@
 export interface User {
     clienteId:number;
-    name?:string;
-    lastName?:string;
-    email: string;
+    nombre?:string;
+    apellido?:string;
+    usuario: string;
     message?:string;
 }
