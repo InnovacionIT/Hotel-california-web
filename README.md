@@ -1,5 +1,4 @@
-![Banner-ispc](https://ibb.co/GFWY8SK)
-
+![Banner ISPC](https://github.com/fertadeo/2023-Fullstack-Proyecto-Integrador/blob/main/Imagenes-README.md/banner-ispc.png)
 
 # 2022-Fullstack-Proyecto-Integrador
 Trabajo realizado para el módulo Proyecto Integrador del ISPC cohorte 2022, año 2023 (Segundo año)
@@ -20,7 +19,11 @@ Enlaces relevantes:
 
 VIDEO PRESENTACIÓN DE 10 MINUTOS SOBRE TODO EL PROYECTO BASE REALIZADO en 2022: [Ver video aquí](https://www.youtube.com/watch?v=2MyMYlJDEnQ&t=48s)
 
+![Imagen-Proyecto-2022](https://github.com/fertadeo/2023-Fullstack-Proyecto-Integrador/blob/main/Imagenes-README.md/preview-2022.png)
+
 VIDEO PRESENTACIÓN DE 10 MINUTOS APROXIMADAMENTE SOBRE TODOS LOS AVANCES DEL PROYECTO HASTA JUNIO DE 2023 : [Ver video aquí](https://youtu.be/vBy37Y4Ot4U)
+
+![Imagen-Proyecto-2023](https://github.com/fertadeo/2023-Fullstack-Proyecto-Integrador/blob/main/Imagenes-README.md/preview-2023.png)
 
 WEB EMPRESARIAL (realizada en Wordpress para el módulo "CMS" o "SISTEMA DE GESTIÓN DE CONTENIDOS", presentando al equipo): [Visitar sitio web aquí](https://innovacionit.tech/)
 
