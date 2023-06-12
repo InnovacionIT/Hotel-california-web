@@ -43,7 +43,6 @@ INSTALLED_APPS = [
     'Facturacion',
     'GestionReservas',
     'GestionUsuarios',
-    'hotel_api', # OK
     'hotel_auth',
 ]
 
