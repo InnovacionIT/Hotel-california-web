@@ -5,7 +5,6 @@ from django.core.validators import RegexValidator
 
 class Cliente(models.Model):
     clienteId = models.AutoField(primary_key=True)
-    imagen = models.ImageField(upload_to='img/perfil')
     nombre = models.CharField(max_length=100, blank=False)
     apellido = models.CharField(max_length=100, blank=False)
     usuario = models.EmailField(max_length=254, blank=False, unique=True)
