@@ -5,26 +5,27 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from .serializer import ClienteSerializer
+from django.http import HttpResponseRedirect
+from rest_framework.authtoken.models import Token
 
 class LoginView(APIView):
-    def get(self, request):
-        return render(request, 'login.html')  # PROCESA SOLICITUD Y RENDERIZA LA VISTA "login.html"
-
-    def post(self, request):  # METODO POST QUE OBTIENE EL USUARIO Y CONTRASEÑA DE LOS DATOS ENVIADOS EN LA SOLICITUD.
-        username = request.data.get('username')
+    def post(self, request):
+        usuario = request.data.get('usuario')
         password = request.data.get('password')
 
-        user = authenticate(request, username=username, password=password)
+        user = authenticate(request, username=usuario, password=password)
         if user is not None:
             login(request, user)
 
             if user.is_superuser:
-                return redirect('admin:index')  # Redirigir al panel de control de Django para el superusuario
+                token, _ = Token.objects.get_or_create(user=user)
+                return Response({'token': token.key})
             else:
-                return redirect('profile')  # Redirigir a la página de perfil para el usuario común
+                token, _ = Token.objects.get_or_create(user=user)
+                return Response({'token': 'Sos un Usuario comun'})
         else:
-            messages.error(request, 'Credenciales inválidas')
-            return redirect('login')
+            return Response({'error': 'Credenciales inválidas'}, status=status.HTTP_401_UNAUTHORIZED)
+            
 
 class LogoutView(APIView):
     def post(self, request):
@@ -34,3 +35,4 @@ class LogoutView(APIView):
     
 class SingupView(generics.CreateAPIView):
     serializer_class = ClienteSerializer
+

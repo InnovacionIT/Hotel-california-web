@@ -8,15 +8,16 @@
     <div class="container">
         <h1>Login</h1>
         <form method="POST">
-            {% csrf_token %}
+            <!-- {% csrf_token %} -->
             <label for="username">Username:</label>
-            <input type="text" id="username" name="username">
+            <input type="text" id="username" name="usuario">
             <br>
             <label for="password">Password:</label>
             <input type="password" id="password" name="password">
             <br>
             <input type="submit" value="Login">
         </form>
+
     </div>
 </body>
 </html>
