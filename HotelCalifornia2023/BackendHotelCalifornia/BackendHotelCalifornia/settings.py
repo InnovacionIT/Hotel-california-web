@@ -43,7 +43,9 @@ INSTALLED_APPS = [
     'Facturacion',
     'GestionReservas',
     'GestionUsuarios',
-    'hotel_auth',
+    'login', # OK
+    'register',
+    'logout', # OK
 ]
 
 REST_FRAMEWORK = {

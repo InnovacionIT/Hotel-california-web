@@ -9,7 +9,7 @@ class Cliente(models.Model):
     nombre = models.CharField(max_length=100, blank=False)
     apellido = models.CharField(max_length=100, blank=False)
     usuario = models.EmailField(max_length=254, blank=False, unique=True)
-    password = models.CharField(max_length=150, blank=False)
+    contraseña = models.CharField(max_length=150, blank=False)
     fechaDeNacimiento = models.DateField(auto_now=False, auto_now_add=False, blank=False)
     class Meta:
         db_table = "Cliente"
@@ -50,7 +50,7 @@ class Empleado(models.Model):
     nombre = models.CharField(max_length=100, blank=False)
     apellido = models.CharField(max_length=100, blank=False)
     usuario = models.EmailField(max_length=254, blank=False, unique=True)
-    password = models.CharField(max_length=150, blank=False)
+    contraseña = models.CharField(max_length=150, blank=False)
     domicilio = models.CharField(max_length=150, blank=False)
     localidad = models.CharField(max_length=100, blank=False)
     provincia = models.CharField(max_length=100, blank=False)
