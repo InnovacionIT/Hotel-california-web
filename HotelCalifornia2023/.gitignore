@@ -6,9 +6,6 @@
 /out-tsc
 /bazel-out
 
-# Python compiled files
-*.pyc
-
 # Node
 /node_modules
 npm-debug.log
