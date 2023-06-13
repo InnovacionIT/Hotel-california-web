@@ -17,8 +17,8 @@ class LoginView(APIView):
             login(request, user)
 
             if user.is_superuser:
-                token, _ = Token.objects.get_or_create(user=user)
-                return Response({'token de admin': token.key})  # Redirigir al panel de control de Django para el superusuario
+                token, _ = Token.objects.get_or_create(user=user) # Crea el token
+                return Response({'token de admin': token.key})  # Devuelve token de sesion como administrador
             else:
                 token, _ = Token.objects.get_or_create(user=user)
                 return Response({'token de usuario': token.key})
