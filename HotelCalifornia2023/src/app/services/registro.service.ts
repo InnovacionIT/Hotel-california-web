@@ -9,7 +9,7 @@ import { RegistroRequest } from './registroRequest';
 export class RegistroService {
   constructor(private http: HttpClient) { }
   // private url = 'assets/clientes.json';
-  private url = 'localhost:8000/api/auth'
+  private url = 'https://localhost:8000/api/auth'
 
 
   agregarUsuario(data: RegistroRequest): Observable<any> {

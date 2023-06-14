@@ -16,15 +16,16 @@ export class RegistroComponent implements OnInit {
 
   registro: RegistroRequest = {
     nombre: '',
-    email: '',
+    usuario: '',
     password: '',
     apellido: '',
     ciudad: '',
     fechaNacimiento: '',
-    telefono: ''
+    telefono: '',
+    imagen:''
   };
 
-  registroForm: FormGroup | undefined;
+  registroForm!: FormGroup;
 
 
 
@@ -36,7 +37,7 @@ export class RegistroComponent implements OnInit {
   ngOnInit(): void {
     this.registroForm = this.formBuilder.group({
       nombre: ['', Validators.required],
-      email: ['', [Validators.required, Validators.email]],
+      usuario: ['', [Validators.required, Validators.email]],
       password: ['', Validators.required],
       apellido: ['', Validators.required],
       ciudad: [''],
