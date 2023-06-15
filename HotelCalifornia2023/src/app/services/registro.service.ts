@@ -12,12 +12,11 @@ export class RegistroService {
   private url = 'http://localhost:8000/api/auth'
 
 
-  agregarUsuario(data: RegistroRequest): Observable<any> {
-    return this.http.post<any>(this.url + '/singup', data);
+  agregarUsuario(data: RegistroRequest): Observable<RegistroRequest> {
+    return this.http.post<RegistroRequest>(this.url + '/singup/', data);
   }
 
   postData(data:RegistroRequest): Observable<any>  {
     return this.http.post<any>(this.url, data );
   }
-
 }

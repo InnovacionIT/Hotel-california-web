@@ -1,6 +1,6 @@
 export interface RegistroRequest {
-  clienteId?: string;
-  imagen: any;
+  clienteId?: number;
+  imagen?: any;
   nombre: any;
   apellido: any;
   usuario: any;

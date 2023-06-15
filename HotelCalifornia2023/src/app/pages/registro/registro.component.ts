@@ -2,20 +2,17 @@ import { Component, OnInit } from '@angular/core';
 import { RegistroService } from '../../services/registro.service';
 import { RegistroRequest } from 'src/app/services/registroRequest';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-registro',
   templateUrl: './registro.component.html',
   styleUrls: ['./registro.component.css']
-
-
 })
 
 export class RegistroComponent implements OnInit {
-
-  registro: RegistroRequest = {
-    imagen:'',
+  registroForm:FormGroup;
+  cliente: RegistroRequest = {
     nombre: '',
     apellido: '',
     usuario: '',
@@ -25,39 +22,46 @@ export class RegistroComponent implements OnInit {
     ciudad: '',
   };
 
-  registroForm!: FormGroup;
-
-
-
-
-
-
-  constructor(private formBuilder:FormBuilder, private registroService: RegistroService) {}
-
-  ngOnInit(): void {
-    this.registroForm = this.formBuilder.group({
-      nombre: ['', Validators.required],
-      usuario: ['', [Validators.required, Validators.email]],
-      password: ['', Validators.required],
-      apellido: ['', Validators.required],
-      ciudad: [''],
-      fechaDeNacimiento: [''],
-      telefono: ['']
-    });
+  constructor(private formBuilder:FormBuilder, 
+    private registroService: RegistroService, 
+    private router: Router) {
+      this.registroForm=this.formBuilder.group(
+        {
+          nombre: ['', Validators.required],
+          usuario: ['', [Validators.required, Validators.email]],
+          password: ['', Validators.required],
+          apellido: ['', Validators.required],
+          ciudad: [''],
+          fechaDeNacimiento: [''],
+          telefono: ['']
+        }
+      )
   }
 
-  onSubmit() {
-    console.log(this.registro); // Imprimir los datos en la consola
+  ngOnInit(): void {}
 
-    this.registroService.agregarUsuario(this.registro).subscribe(
-      (response:any) => {
-        console.log('Solicitud POST exitosa', response);
-        // Aquí puedes realizar acciones adicionales después de una solicitud exitosa, como redirigir al usuario a una página de éxito o mostrar un mensaje de confirmación.
-      },
-      (error:any) => {
-        console.log('Error en la solicitud POST', error);
-        // Manejar los errores de la solicitud, como mostrar un mensaje de error al usuario o realizar acciones de recuperación.
-      }
-    );
-  }
+  onSubmit(event: Event, cliente: RegistroRequest): void {
+    event.preventDefault;
+
+    if(this.registroForm.valid)
+    {
+        console.log("Enviado al servidor...")
+        console.log(cliente)
+
+        this.registroService.agregarUsuario(cliente as RegistroRequest).subscribe({
+          next:()=> {
+            alert("El registro ha sido creado correctamente. Por favor, inicia sesión");
+            this.router.navigate(['/login'])
+          },
+          
+          error:(errorData) => {
+            console.error(errorData);
+            
+          }})
+    }
+    else{
+      this.registroForm.markAllAsTouched();
+    }
+  };
+    
 }

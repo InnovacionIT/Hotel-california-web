@@ -12,7 +12,7 @@ import { LoginRequest } from 'src/app/services/loginRequest';
 export class LoginComponent implements OnInit {
 
   loginForm=this.formBuilder.group({
-    usuario:['camillosoy@gmail.com', [Validators.required, Validators.email]],
+    usuario:['', [Validators.required, Validators.email]],
     password:['' ,Validators.required]
   })
 
