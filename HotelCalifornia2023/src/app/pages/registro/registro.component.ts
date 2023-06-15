@@ -15,14 +15,14 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 export class RegistroComponent implements OnInit {
 
   registro: RegistroRequest = {
+    imagen:'',
     nombre: '',
+    apellido: '',
     usuario: '',
     password: '',
-    apellido: '',
-    ciudad: '',
-    fechaNacimiento: '',
+    fechaDeNacimiento: '',
     telefono: '',
-    imagen:''
+    ciudad: '',
   };
 
   registroForm!: FormGroup;
@@ -41,7 +41,7 @@ export class RegistroComponent implements OnInit {
       password: ['', Validators.required],
       apellido: ['', Validators.required],
       ciudad: [''],
-      fechaNacimiento: [''],
+      fechaDeNacimiento: [''],
       telefono: ['']
     });
   }

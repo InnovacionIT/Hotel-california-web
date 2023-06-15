@@ -5,12 +5,14 @@ from django.core.validators import RegexValidator
 
 class Cliente(models.Model):
     clienteId = models.AutoField(primary_key=True)
-    imagen = models.ImageField(upload_to='img/perfil')
+    imagen = models.ImageField(upload_to='img/perfil', blank=True)
     nombre = models.CharField(max_length=100, blank=False)
     apellido = models.CharField(max_length=100, blank=False)
     usuario = models.EmailField(max_length=254, blank=False, unique=True)
     password = models.CharField(max_length=150, blank=False)
     fechaDeNacimiento = models.DateField(auto_now=False, auto_now_add=False, blank=False)
+    telefono = models.PositiveBigIntegerField()
+    ciudad = models.CharField(max_length=256)
     class Meta:
         db_table = "Cliente"
         verbose_name = "Todos los clientes registrados"
