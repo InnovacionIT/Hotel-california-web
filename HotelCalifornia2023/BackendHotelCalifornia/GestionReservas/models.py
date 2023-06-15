@@ -6,19 +6,20 @@ from GestionUsuarios.models import Hotel, Cliente
 
 # Aquí se encuentra el código de las clases TipoHabitacion, Habitacion, Reserva y ReservaPorHabitacion
 
-class TipoHabitacion(models.Model):
-    tipoHabitacionId = models.AutoField(primary_key=True)
-    tipoHabitacion = models.CharField(max_length=50, unique=True, blank=False)
-    class Meta:
-        db_table = "tipo"
-        verbose_name = "Tipos de habitaciones de un hotel"
-        verbose_name_plural = "Tipos"
-    def __unicode__(self):
-        return self.tipoHabitacion
-    def __str__(self) -> str:
-        return self.tipoHabitacion
 class Imagen(models.Model):
     imagen = models.ImageField(upload_to='img/habitaciones')
+
+class Servicio(models.Model):
+    servicioId = models.AutoField(primary_key=True)
+    servicio = models.CharField(max_length=256)
+    class Meta:
+        db_table = "Servicio"
+        verbose_name = "Servicios que contienen las habitaciones de un hotel"
+        verbose_name_plural = "Servicios"
+    def __unicode__(self):
+        return self.servicioId
+    def __str__(self) -> str:
+        return self.servicio
 
 class Habitacion(models.Model):
     habitacionId = models.AutoField(primary_key=True)
@@ -27,10 +28,10 @@ class Habitacion(models.Model):
     estado = models.CharField(max_length=50, default="Disponible", blank=False)
     precio = models.IntegerField(blank=False)
     hotelId = models.ForeignKey(Hotel, to_field='hotelId', on_delete=models.CASCADE)
-    tipoHabitacionId = models.ForeignKey(TipoHabitacion, to_field="tipoHabitacionId", on_delete=models.CASCADE)
+    tipoHabitacion = models.CharField(max_length=100, blank=False)
     imagenes = models.ManyToManyField(Imagen)
     class Meta:
-        db_table = "habitacion"
+        db_table = "Habitacion"
         verbose_name = "Habitaciones de un hotel"
         verbose_name_plural = "Habitaciones"
     def __unicode__(self):
@@ -38,37 +39,32 @@ class Habitacion(models.Model):
     def __str__(self) -> str:
         return f"Habitacion {self.numero}"
 
+class ServicioPorHabitacion(models.Model):
+    servicioPorHabitacionId = models.AutoField(primary_key=True)
+    servicioId = models.ForeignKey(Servicio, to_field='servicioId', on_delete=models.CASCADE)
+    habitacionId = models.ForeignKey(Habitacion, to_field='habitacionId', on_delete=models.CASCADE)
+    class Meta:
+        db_table = "ServicioPorHabitacion"
+        verbose_name = "Servicio de cada habitación"
+        verbose_name_plural = "ServiciosPorHabitacion"
+    def __unicode__(self):
+        return self.servicioPorHabitacionId
+    def __str__(self) -> str:
+        return f"Servicio {self.servicioId} de la habitación {self.habitacionId}"
+    
 class Reserva(models.Model):
     reservaId = models.AutoField(primary_key=True)
+    habitacionId = models.ForeignKey(Habitacion, to_field='habitacionId', on_delete=models.CASCADE)
     fechaReserva = models.DateField(default=date.today, blank=False)
+    fechaIngreso = models.DateField(blank=False)
+    fechaEgreso = models.DateField(blank=False)
     clienteId = models.ForeignKey(Cliente, to_field='clienteId', on_delete=models.CASCADE)
     class Meta:
-        db_table = "reserva"
+        db_table = "Reserva"
         verbose_name = "Reservas de habitacinoes en un hotel"
         verbose_name_plural = "Reservas"
     def __unicode__(self):
         return f"Reserva {self.reservaId}"
     def __str__(self):
-        return f"Reserva del cliente {self.clienteId} el {self.fechaReserva}"
-
-class ReservaPorHabitacion(models.Model):
-    reservaHabitacionId = models.AutoField(primary_key=True)
-    fechaIngreso = models.DateField(blank=False)
-    fechaEgreso = models.DateField(blank=False)
-    habitacionId = models.ForeignKey(Habitacion, on_delete=models.CASCADE)
-    reservaId = models.ForeignKey(Reserva, on_delete=models.CASCADE)
-    class Meta:
-        db_table = "reserva_habitacion"
-        verbose_name = "Habitaciones en una reserva"
-        verbose_name_plural = "reserva_habitaciones"
-        # constraints = [
-        #     models.CheckConstraint(
-        #         check=models.Q(fechaIngreso__lte=models.F('fechaEgreso'), fechaIngreso__gte=Now()),
-        #         name='Correctas fecha de reserva'
-        #     ),
-        # ]
-    def __unicode__(self):
-        return self.reservaHabitacionId
-    def __str__(self) -> str:
-        return f"Reserva {self.reservaId}, fecha ingreso {self.fechaEgreso}, fecha egreso {self.fechaEgreso}, habitacion {self.habitacionId}"
+        return f"Reserva del cliente {self.clienteId} el {self.fechaReserva} para la habitacion {self.habitacionId}"
 

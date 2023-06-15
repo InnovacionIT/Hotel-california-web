@@ -24,7 +24,7 @@ class Cliente(models.Model):
         
 class Hotel(models.Model):
     hotelId = models.AutoField(primary_key=True)
-    razonsocial= models.CharField(max_length=150, blank=False)
+    razonSocial= models.CharField(max_length=150, blank=False)
     cuil = models.CharField(max_length=13,
                             blank=False, 
                             unique=True, 
@@ -35,7 +35,7 @@ class Hotel(models.Model):
     localidad = models.CharField(max_length=100,blank=False)
     provincia = models.CharField(max_length=100, blank=False)
     cp = models.PositiveSmallIntegerField(blank=False)
-    telefono = models.IntegerField(blank=False)
+    telefono = models.PositiveBigIntegerField(blank=False)
     categoria = models.CharField(max_length=50, blank=False)
     email = models.EmailField(max_length=254, blank=False)
     class Meta:
@@ -57,7 +57,7 @@ class Empleado(models.Model):
     localidad = models.CharField(max_length=100, blank=False)
     provincia = models.CharField(max_length=100, blank=False)
     cp = models.PositiveSmallIntegerField(blank=False)
-    telefono = models.IntegerField(blank=False)
+    telefono = models.PositiveBigIntegerField(blank=False)
     hotelId = models.ForeignKey(Hotel, to_field="hotelId", on_delete=models.CASCADE)
     rol = models.CharField(max_length=70, blank=False)
     class Meta:
