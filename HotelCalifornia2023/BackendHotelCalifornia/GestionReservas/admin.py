@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django import forms
 from django.contrib.admin.widgets import FilteredSelectMultiple
-from .models import Habitacion, Servicio, ServicioPorHabitacion, Reserva, ReservaPorHabitacion, Imagen
+from .models import Habitacion, Servicio, ServicioPorHabitacion, Reserva, Imagen
 
 class ImagenAdmin(admin.ModelAdmin):
     pass

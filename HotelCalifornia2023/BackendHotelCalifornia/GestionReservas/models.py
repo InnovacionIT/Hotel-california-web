@@ -1,6 +1,4 @@
 from django.db import models
-from django.db.models import Q
-from django.db.models.functions import Now
 from datetime import date
 from GestionUsuarios.models import Hotel, Cliente
 

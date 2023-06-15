@@ -2,7 +2,7 @@ from django.contrib import admin
 from .models import Cliente, Hotel, Empleado
 
 class ClienteAdmin(admin.ModelAdmin):
-    list_display = ("image", "nombre", "apellido", "usuario", "password", "fechaDeNacimiento", "telefono", "ciudad")
+    list_display = ("imagen", "nombre", "apellido", "usuario", "password", "fechaDeNacimiento", "telefono", "ciudad")
 class HotelAdmin(admin.ModelAdmin):
     list_display = ("razonSocial", "cuil", "domicilio", "localidad", "provincia", "cp", "telefono", "categoria", "email")
 class EmpleadoAdmin(admin.ModelAdmin):
