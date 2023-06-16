@@ -28,9 +28,10 @@ class ClienteLogeadoSerializer(serializers.ModelSerializer):
     ciudad=serializers.CharField(required = True)
     is_staff=serializers.BooleanField(required=True)
     is_superuser=serializers.BooleanField(required=True)
+    token=serializers.CharField(required = True)
     class Meta:
         model = get_user_model()
-        fields = ("imagen", "nombre", "apellido", "usuario", "password", "fechaDeNacimiento", "telefono", "ciudad", "is_superuser", "is_staff")
+        fields = ("imagen", "nombre", "apellido", "usuario", "password", "fechaDeNacimiento", "telefono", "ciudad", "is_superuser", "is_staff", "token")
     def validate_password(self, value):
         return make_password(value)
     
@@ -48,7 +49,6 @@ class LoginSerializer(serializers.Serializer):
                 raise serializers.ValidationError('Credenciales inválidas')
             if not user.is_active:
                 raise serializers.ValidationError('La cuenta del usuario está deshabilitada')
-
         else:
             raise serializers.ValidationError('Debe incluir un "usuario" y una "password"')
 
