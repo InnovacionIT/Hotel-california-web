@@ -66,9 +66,9 @@ class Hotel(models.Model):
         verbose_name = "Todos los hoteles disponibles"
         verbose_name_plural = "Hoteles"
     def __unicode__(self):
-        return self.razonsocial
+        return self.razonSocial
     def __str__(self) -> str:
-        return self.razonsocial
+        return self.razonSocial
 
 class Empleado(models.Model):
     empleadoId = models.AutoField(primary_key=True)
