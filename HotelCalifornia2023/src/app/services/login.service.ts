@@ -9,7 +9,7 @@ import { User } from './user';
 })
 export class LoginService {
   currentUserLoginOn: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
-  currentUserData: BehaviorSubject<User> = new BehaviorSubject<User>({ clienteId: 0, usuario: '' });
+  currentUserData: BehaviorSubject<User> = new BehaviorSubject<User>({ clienteId: 0, usuario: '', is_staff: false, is_superuser: false });
 
   constructor(private http: HttpClient) {}
 
@@ -31,7 +31,7 @@ export class LoginService {
   }
 
   logout(): void {
-    this.currentUserData.next({ clienteId: 0, usuario: '' });
+    this.currentUserData.next({ clienteId: 0, usuario: '', is_staff: false, is_superuser: false });
     this.currentUserLoginOn.next(false);
   }
 }

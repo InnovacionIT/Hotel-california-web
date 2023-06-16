@@ -4,7 +4,7 @@ from rest_framework import status, generics
 from rest_framework.authtoken.models import Token
 from rest_framework.permissions import AllowAny, IsAuthenticated, IsAdminUser
 from django.contrib.auth import login, logout
-from .serializer import ClienteSerializer, LoginSerializer
+from .serializer import ClienteSerializer, LoginSerializer, ClienteLogeadoSerializer
 from GestionUsuarios.models import Cliente
 
 class LoginView(generics.CreateAPIView):
@@ -15,7 +15,7 @@ class LoginView(generics.CreateAPIView):
         serializer.is_valid(raise_exception=True)
         user = serializer.validated_data['user']
         login(request, user)
-        return Response(ClienteSerializer(user).data, status=status.HTTP_200_OK)
+        return Response(ClienteLogeadoSerializer(user).data, status=status.HTTP_200_OK)
 
 class LogoutView(APIView):
     permission_classes= [AllowAny]

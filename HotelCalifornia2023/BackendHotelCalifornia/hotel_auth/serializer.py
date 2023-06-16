@@ -17,6 +17,23 @@ class ClienteSerializer(serializers.ModelSerializer):
     def validate_password(self, value):
         return make_password(value)
     
+class ClienteLogeadoSerializer(serializers.ModelSerializer):
+    imagen=serializers.CharField(required=False),
+    nombre=serializers.CharField(required = True),
+    apellido=serializers.CharField(required = True),
+    usuario=serializers.EmailField(required = True),
+    password=serializers.CharField(required = True),
+    fechaDeNacimiento=serializers.DateField(required = True),
+    telefono=serializers.CharField(required = True)
+    ciudad=serializers.CharField(required = True)
+    is_staff=serializers.BooleanField(required=True)
+    is_superuser=serializers.BooleanField(required=True)
+    class Meta:
+        model = get_user_model()
+        fields = ("imagen", "nombre", "apellido", "usuario", "password", "fechaDeNacimiento", "telefono", "ciudad", "is_superuser", "is_staff")
+    def validate_password(self, value):
+        return make_password(value)
+    
 class LoginSerializer(serializers.Serializer):
     usuario = serializers.EmailField(required=True)
     password = serializers.CharField(required=True, style={'input_type': 'password'})
