@@ -6,5 +6,5 @@ export interface User {
     message?:string;
     is_staff:boolean;
     is_superuser:boolean;
-    token?:string;
+    // token?:string;
 }

@@ -27,7 +27,7 @@ class Cliente(AbstractBaseUser, PermissionsMixin):
     fechaDeNacimiento = models.DateField(blank=False)
     telefono = models.PositiveBigIntegerField()
     ciudad = models.CharField(max_length=256)
-    token = models.CharField(max_length=256)
+    # token = models.CharField(max_length=256)
 
     is_staff = models.BooleanField(default=False)
     is_active = models.BooleanField(default=True)

@@ -20,8 +20,8 @@ class LoginView(generics.CreateAPIView):
         login(request, user)
 
         clienteLogueado = ClienteLogeadoSerializer(user)
-        token, _ = Token.objects.get_or_create(user=user) # Crea el token
-        clienteLogueado.token = token.key
+        # token, _ = Token.objects.get_or_create(user=user) # Crea el token
+        # clienteLogueado.token = token.key
 
         return Response(clienteLogueado.data, status=status.HTTP_200_OK)
 
