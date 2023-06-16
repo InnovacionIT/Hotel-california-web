@@ -1,12 +1,8 @@
 from django.contrib import admin
 from .models import Hotel, Empleado, Cliente
-from django.contrib.auth import get_user_model
 from django.contrib.auth.admin import UserAdmin
 
-# Cliente = get_user_model()
-
 class ClienteAdmin(UserAdmin):
-    # model = Cliente
     list_display = ("clienteId", "imagen", "nombre", "apellido", "usuario", "fechaDeNacimiento", "telefono", "ciudad")
 
     fieldsets = (

@@ -1,7 +1,6 @@
 from rest_framework import serializers
 from django.contrib.auth import get_user_model, authenticate
 from django.contrib.auth.hashers import make_password
-from GestionUsuarios.models import Cliente
 
 class ClienteSerializer(serializers.ModelSerializer):
     imagen=serializers.CharField(required=False),
@@ -28,15 +27,13 @@ class LoginSerializer(serializers.Serializer):
 
         if usuario and password:
             user = authenticate(username=usuario, password=password)
-
             if not user:
-                raise serializers.ValidationError('Invalid credentials')
-
+                raise serializers.ValidationError('Credenciales inválidas')
             if not user.is_active:
-                raise serializers.ValidationError('User account is disabled')
+                raise serializers.ValidationError('La cuenta del usuario está deshabilitada')
 
         else:
-            raise serializers.ValidationError('Must include "usuario" and "password"')
+            raise serializers.ValidationError('Debe incluir un "usuario" y una "password"')
 
         attrs['user'] = user
         return attrs
