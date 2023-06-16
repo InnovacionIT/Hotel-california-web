@@ -1,26 +1,67 @@
 from django.db import models
 from django.core.validators import RegexValidator
+from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
 
-# Aquí se encuentra el código de las clases TipoHabitacion, Habitacion, Reserva y ReservaPorHabitacion
+class ClienteManager(BaseUserManager):
+    def create_user(self, usuario, password=None, **extra_fields):
+        if not usuario:
+            raise ValueError('El campo de correo electrónico es obligatorio')
 
-class Cliente(models.Model):
+        usuario = self.normalize_email(usuario)
+        user = self.model(usuario=usuario, **extra_fields)
+        user.set_password(password)
+        user.save(using=self._db)
+        return user
+
+    def create_superuser(self, usuario, password=None, **extra_fields):
+        extra_fields.setdefault('is_staff', True)
+        extra_fields.setdefault('is_superuser', True)        
+        return self.create_user(usuario, password, **extra_fields)
+
+class Cliente(AbstractBaseUser, PermissionsMixin):
     clienteId = models.AutoField(primary_key=True)
     imagen = models.ImageField(upload_to='img/perfil', blank=True)
     nombre = models.CharField(max_length=100, blank=False)
     apellido = models.CharField(max_length=100, blank=False)
-    usuario = models.EmailField(max_length=254, blank=False, unique=True)
-    password = models.CharField(max_length=150, blank=False)
-    fechaDeNacimiento = models.DateField(auto_now=False, auto_now_add=False, blank=False)
+    usuario = models.EmailField(max_length=254, unique=True)
+    fechaDeNacimiento = models.DateField(blank=False)
     telefono = models.PositiveBigIntegerField()
     ciudad = models.CharField(max_length=256)
+
+    is_staff = models.BooleanField(default=False)
+    is_active = models.BooleanField(default=True)
+
+    objects = ClienteManager()
+
+    USERNAME_FIELD = 'usuario'
+    REQUIRED_FIELDS = ['nombre', 'apellido', 'fechaDeNacimiento', 'telefono', 'ciudad', 'password']
+
     class Meta:
         db_table = "Cliente"
         verbose_name = "Todos los clientes registrados"
         verbose_name_plural = "Clientes"
-    def __unicode__(self):
-        return self.correo
-    def __str__(self) -> str:
+
+    def __str__(self):
         return f"Cliente {self.apellido}, {self.nombre}"
+    
+# class Cliente(models.Model):
+#     clienteId = models.AutoField(primary_key=True)
+#     imagen = models.ImageField(upload_to='img/perfil', blank=True)
+#     nombre = models.CharField(max_length=100, blank=False)
+#     apellido = models.CharField(max_length=100, blank=False)
+#     usuario = models.EmailField(max_length=254, blank=False, unique=True)
+#     password = models.CharField(max_length=150, blank=False)
+#     fechaDeNacimiento = models.DateField(auto_now=False, auto_now_add=False, blank=False)
+#     telefono = models.PositiveBigIntegerField()
+#     ciudad = models.CharField(max_length=256)
+#     class Meta:
+#         db_table = "Cliente"
+#         verbose_name = "Todos los clientes registrados"
+#         verbose_name_plural = "Clientes"
+#     def __unicode__(self):
+#         return self.correo
+#     def __str__(self) -> str:
+#         return f"Cliente {self.apellido}, {self.nombre}"
         
 class Hotel(models.Model):
     hotelId = models.AutoField(primary_key=True)
