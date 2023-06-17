@@ -23,7 +23,7 @@ class HabitacionAdmin(admin.ModelAdmin):
     form = HabitacionAdminForm
     
 class ReservaAdmin(admin.ModelAdmin):
-    list_display = ("habitacionId", "fechaReserva", "fechaIngreso", "fechaEgreso", "clienteId")
+    list_display = ("habitacionId", "fechaReserva", "fechaIngreso", "fechaEgreso", "usuarioId")
 
 admin.site.register(Imagen, ImagenAdmin)
 admin.site.register(Servicio, ServicioAdmin)

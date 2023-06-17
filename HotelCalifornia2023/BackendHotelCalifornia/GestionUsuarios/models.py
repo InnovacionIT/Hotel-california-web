@@ -2,7 +2,7 @@ from django.db import models
 from django.core.validators import RegexValidator
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
 
-class ClienteManager(BaseUserManager):
+class UsuarioManager(BaseUserManager):
     def create_user(self, usuario, password=None, **extra_fields):
         if not usuario:
             raise ValueError('El campo de correo electrónico es obligatorio')
@@ -18,8 +18,8 @@ class ClienteManager(BaseUserManager):
         extra_fields.setdefault('is_superuser', True)        
         return self.create_user(usuario, password, **extra_fields)
 
-class Cliente(AbstractBaseUser, PermissionsMixin):
-    clienteId = models.AutoField(primary_key=True)
+class Usuario(AbstractBaseUser, PermissionsMixin):
+    usuarioId = models.AutoField(primary_key=True)
     imagen = models.ImageField(upload_to='img/perfil', blank=True)
     nombre = models.CharField(max_length=100, blank=False)
     apellido = models.CharField(max_length=100, blank=False)
@@ -32,7 +32,7 @@ class Cliente(AbstractBaseUser, PermissionsMixin):
     is_staff = models.BooleanField(default=False)
     is_active = models.BooleanField(default=True)
 
-    objects = ClienteManager()
+    objects = UsuarioManager()
 
     USERNAME_FIELD = 'usuario'
     REQUIRED_FIELDS = ['nombre', 'apellido', 'fechaDeNacimiento', 'telefono', 'ciudad', 'password']
