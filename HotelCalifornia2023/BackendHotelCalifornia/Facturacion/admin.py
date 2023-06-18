@@ -2,7 +2,7 @@ from django.contrib import admin
 from .models import Factura, Detalle, DetallePago
 
 class FacturaAdmin(admin.ModelAdmin):
-    list_display = ("nroFactura", "hotelId", "clienteId")
+    list_display = ("nroFactura", "hotelId", "usuarioId")
 class DetalleAdmin(admin.ModelAdmin):
     list_display = ("facturaId", "reservaId", "descuento", "importe")
 class DetallePagoAdmin(admin.ModelAdmin):

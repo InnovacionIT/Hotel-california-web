@@ -2,7 +2,7 @@ from rest_framework import serializers
 from django.contrib.auth import get_user_model, authenticate
 from django.contrib.auth.hashers import make_password
 
-class ClienteSerializer(serializers.ModelSerializer):
+class UsuarioSerializer(serializers.ModelSerializer):
     imagen=serializers.CharField(required=False),
     nombre=serializers.CharField(required = True),
     apellido=serializers.CharField(required = True),
@@ -17,7 +17,7 @@ class ClienteSerializer(serializers.ModelSerializer):
     def validate_password(self, value):
         return make_password(value)
     
-class ClienteLogeadoSerializer(serializers.ModelSerializer):
+class UsuarioLogeadoSerializer(serializers.ModelSerializer):
     imagen=serializers.CharField(required=False),
     nombre=serializers.CharField(required = True),
     apellido=serializers.CharField(required = True),

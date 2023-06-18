@@ -2,7 +2,7 @@ export interface Factura{
     facturaId: Number,
     nroFactura: Number,
     hotelId: Number,
-    clienteId: Number,
+    usuarioId: Number,
            
  } ;
  

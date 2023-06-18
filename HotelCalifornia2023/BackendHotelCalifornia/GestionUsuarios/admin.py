@@ -1,9 +1,9 @@
 from django.contrib import admin
-from .models import Hotel, Empleado, Cliente
+from .models import Hotel, Empleado, Usuario
 from django.contrib.auth.admin import UserAdmin
 
-class ClienteAdmin(UserAdmin):
-    list_display = ("clienteId", "imagen", "nombre", "apellido", "usuario", "fechaDeNacimiento", "telefono", "ciudad")
+class UsuarioAdmin(UserAdmin):
+    list_display = ("usuarioId", "imagen", "nombre", "apellido", "usuario", "fechaDeNacimiento", "telefono", "ciudad")
 
     fieldsets = (
         (None, {"fields": ("usuario", "password")}),
@@ -14,7 +14,7 @@ class ClienteAdmin(UserAdmin):
     filter_horizontal = []
     list_filter = []
     search_fields = ("nombre", "apellido", "usuario")
-    ordering = ("clienteId",)
+    ordering = ("usuarioId",)
     add_fieldsets = (
         (None, {
             'classes': ('wide',),
@@ -27,6 +27,6 @@ class HotelAdmin(admin.ModelAdmin):
 class EmpleadoAdmin(admin.ModelAdmin):
     list_display = ("nombre", "apellido", "usuario", "password", "domicilio", "localidad", "provincia", "cp", "telefono", "hotelId", "rol")
 
-admin.site.register(Cliente, ClienteAdmin)
+admin.site.register(Usuario, UsuarioAdmin)
 admin.site.register(Hotel, HotelAdmin)
 admin.site.register(Empleado, EmpleadoAdmin)
