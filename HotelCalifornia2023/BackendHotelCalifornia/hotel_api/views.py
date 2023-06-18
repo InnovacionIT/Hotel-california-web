@@ -1,9 +1,40 @@
 from rest_framework import status, generics
 from rest_framework.response import Response
-from .serializers import ReservaSerializer, FacturaSerializer, DetalleSerializer, DetallePagoSerializer
-from GestionReservas.models import Reserva
+from .serializers import ReservaSerializer, FacturaSerializer, DetalleSerializer, DetallePagoSerializer, HabitacionSerializer
+from GestionReservas.models import Reserva, Habitacion
 from Facturacion.models import Factura, Detalle, DetallePago
 from rest_framework.views import APIView
+
+
+#Habitaciones
+
+class HabitacionView(APIView):
+    def get(self, request, habitacionId=None):
+        if habitacionId is not None:  
+            return self.get_by_id(request, habitacionId)
+        habitaciones = Habitacion.objects.all()
+        serializer = HabitacionSerializer(habitaciones, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+    def get_by_id(self, request, habitacionId):
+        habitaciones = tryGetById(Habitacion, habitacionId)
+        if habitaciones is None:
+            return Response({'error': 'Habitacion no encontrada'}, status=status.HTTP_404_NOT_FOUND)
+        serializer = HabitacionSerializer(habitaciones)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+    
+    def get_by_estado(self, request, estado):
+        habitaciones = Habitacion.objects.filter(estado=estado)
+        if not habitaciones:
+            return Response({'error': 'No se encontraron habitaciones con el estado especificado'}, status=status.HTTP_404_NOT_FOUND)
+        serializer = HabitacionSerializer(habitaciones, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+    
+
+
+####################################################################################################################
+#Reservas
 
 def validarFecha(serializer):
         fechaReserva = serializer.validated_data['fechaReserva']

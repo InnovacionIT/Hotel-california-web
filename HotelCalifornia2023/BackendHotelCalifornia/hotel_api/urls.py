@@ -1,7 +1,10 @@
 from django.urls import path
-from .views import ReservaView, FacturaView, DetallePagoView, DetalleView
+from .views import ReservaView, FacturaView, DetallePagoView, DetalleView, HabitacionView
 
 urlpatterns = [
+    path('habitacion/', HabitacionView.as_view(), name='habitaciones'),
+    path('habitacion/<int:habitacionId>/', HabitacionView.as_view(), name='habitacion'),
+    path('habitacion/?estado=<str:estado>/', HabitacionView.as_view(), name='estado'),
     path('reserva/', ReservaView.as_view(), name='reserva_lista'),
     path('reserva/<int:reservaId>/', ReservaView.as_view(), name='reserva'),
     path('factura/', FacturaView.as_view(), name='factura_lista'),
