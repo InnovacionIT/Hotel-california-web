@@ -2,6 +2,7 @@ from django.db import models
 from django.core.validators import RegexValidator
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
 
+
 class UsuarioManager(BaseUserManager):
     def create_user(self, usuario, password=None, **extra_fields):
         if not usuario:
