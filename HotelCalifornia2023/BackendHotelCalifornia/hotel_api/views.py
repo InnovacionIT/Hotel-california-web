@@ -5,7 +5,7 @@ from GestionReservas.models import Reserva
 from Facturacion.models import Factura, Detalle, DetallePago
 from rest_framework.views import APIView
 
-def validateDate(serializer):
+def validarFecha(serializer):
         fechaReserva = serializer.validated_data['fechaReserva']
         fechaIngreso = serializer.validated_data['fechaIngreso']
         fechaEgreso = serializer.validated_data['fechaEgreso']
@@ -40,7 +40,7 @@ class ReservaView(APIView):
     def post(self, request):
         serializer = ReservaSerializer(data=request.data)
         if serializer.is_valid():
-            validateDate(serializer)
+            validarFecha(serializer)
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
@@ -51,7 +51,7 @@ class ReservaView(APIView):
             return Response({'error': 'Reserva not found'}, status=status.HTTP_404_NOT_FOUND)
         serializer = ReservaSerializer(reserva, data=request.data)
         if serializer.is_valid():
-            validateDate(serializer)
+            validarFecha(serializer)
             serializer.save()
             return Response(serializer.data, status=status.HTTP_200_OK)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
@@ -129,48 +129,6 @@ class DetallePagoView(APIView):
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-class FacturaCreateView(generics.ListCreateAPIView):
-    queryset = Factura.objects.all()
-    serializer_class = FacturaSerializer
-
-    def post(self, request, *args, **kwargs):
-        serializer = self.get_serializer(data=request.data)
-        if serializer.is_valid():
-            self.perform_create(serializer)            
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
-        
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-class ReservaCreateView(generics.ListCreateAPIView):
-    queryset = Reserva.objects.all()
-    serializer_class = ReservaSerializer
-
-    def post(self, request, *args, **kwargs):
-        serializer = self.get_serializer(data=request.data)
-        if serializer.is_valid():
-            validateDate(serializer)
-            self.perform_create(serializer)            
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
-        
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-class ReservaUpdateView(generics.UpdateAPIView):
-    serializer_class = ReservaSerializer
-    queryset = Reserva.objects.all()
-
-    def perform_update(self, serializer):
-        if serializer.is_valid():
-            validateDate(serializer)
-            serializer.save()            
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
-        
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-    
-class ReservaDetailView(generics.RetrieveAPIView):
-    queryset = Reserva.objects.all()
-    serializer_class = ReservaSerializer
-    lookup_field = 'pk'
-
-class ReservaDeleteView(generics.DestroyAPIView):
     queryset = Reserva.objects.all()
     serializer_class = ReservaSerializer
     lookup_field = 'pk'
