@@ -9,9 +9,11 @@ from rest_framework.views import APIView
 #Habitaciones
 
 class HabitacionView(APIView):
-    def get(self, request, habitacionId=None):
+    def get(self, request, habitacionId=None,estado=None):
         if habitacionId is not None:  
             return self.get_by_id(request, habitacionId)
+        if estado is not None:  
+            return self.get_by_estado(request, estado)
         habitaciones = Habitacion.objects.all()
         serializer = HabitacionSerializer(habitaciones, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
