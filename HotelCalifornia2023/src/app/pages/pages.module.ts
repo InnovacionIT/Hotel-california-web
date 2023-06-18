@@ -9,7 +9,8 @@ import { ReservasComponent } from './vista-interna/reservas/reservas.component';
 import { RouterModule } from '@angular/router';
 import { ProductCardComponent } from './habitaciones-ecommerce/product-card/product-card.component';
 import { HttpClientModule } from '@angular/common/http';
-import { ReactiveFormsModule, FormsModule} from '@angular/forms'
+import { ReactiveFormsModule, FormsModule} from '@angular/forms';
+import { BannerComponent } from './habitaciones-ecommerce/banner/banner.component'
 
 
 
@@ -21,7 +22,8 @@ import { ReactiveFormsModule, FormsModule} from '@angular/forms'
     RegistroComponent,
     ServiciosComponent,
     ReservasComponent,
-    ProductCardComponent
+    ProductCardComponent,
+    BannerComponent
   ],
   imports: [
     CommonModule,

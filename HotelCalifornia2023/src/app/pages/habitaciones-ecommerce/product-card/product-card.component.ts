@@ -9,6 +9,9 @@ import { ReservasComponent } from '../../vista-interna/reservas/reservas.compone
   styleUrls: ['./product-card.component.css']
 })
 export class ProductCardComponent implements OnInit {
+  mostrarBanner: boolean = false;
+  mostrarInfo: boolean = true; //solo para simular despues borrar
+
   public misHabitaciones:Array<Habitacion>;
   public startDate: string;
   public leaveDate: string;
@@ -77,6 +80,9 @@ export class ProductCardComponent implements OnInit {
 
     this.createReservation(reserva);
     console.log('Reserva enviada:', reserva);
+
+    this.mostrarInfo = false;//solo para simular
+    this.mostrarBanner = true;
   }
   createReservation(reserva: any) {
     // Lógica para crear la reserva
