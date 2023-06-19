@@ -16,7 +16,7 @@ export class LoginComponent implements OnInit {
     password:['' ,Validators.required]
   })
 
-  
+
 constructor(private formBuilder:FormBuilder, private router:Router, private loginService:LoginService) { }
 
   ngOnInit(): void {
@@ -32,7 +32,7 @@ constructor(private formBuilder:FormBuilder, private router:Router, private logi
       this.loginService.login(this.loginForm.value as LoginRequest).subscribe({
         next:(userData)=> {
           console.info('login completo');
-          console.log(userData);
+          console.log("userDataLogin", userData);
           if(userData.is_staff || userData.is_superuser){
             window.location.href = 'http://localhost:8000/admin/';
           }
@@ -40,21 +40,21 @@ constructor(private formBuilder:FormBuilder, private router:Router, private logi
             this.router.navigateByUrl('/nosotros');
           }
         },
-        
+
         error:(errorData) => {
           console.error(errorData);
-          
+
         },
         complete: () => {
           this.loginForm.reset();
         }
       });
-      
+
     }
     else{
       this.loginForm.markAllAsTouched();
       alert('error al ingresar los datos')
     }
-  }  
+  }
 }
 

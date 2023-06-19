@@ -3,8 +3,13 @@
 <div *ngFor="let habitacion of misHabitaciones; let i=index" class="card" >
   <img src="../../../../assets/img/room01.jpg" class="card-img-top" alt="room1">
   <div class="card-body">
-    <h4 class="card-title"> {{habitacion.tipo}} </h4>
-    <p class="card-text">{{habitacion.descripcion}}</p>
+    <h4 class="card-title"> {{habitacion.tipoHabitacion}} </h4>
+    <div class="roomServices card-text">
+      <ul class="serviceList">
+        <li class="service" *ngFor="let servicio of habitacion.servicios">{{ servicio }}</li> <!-- Mapeo del array de servicios -->
+      </ul>
+    </div>
+    <!-- <p class="card-text">{{habitacion.precio}}</p> -->
     <a href="#" class="btn btnCalifornia" data-bs-toggle="modal" [attr.data-bs-target]="'#targetIdPunto'+i">Reservar</a>
   </div>
 </div>
@@ -13,7 +18,7 @@
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content contenidoModal p-3">
       <div class="modal-header">
-        <h2 class="modal-title"> {{habitacion.tipo}} </h2>
+        <h2 class="modal-title"> {{habitacion.tipoHabitacion}} </h2>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body row">
@@ -33,7 +38,8 @@
             <label for="leaveDate">Hasta:</label>
             <input type="date" id="leaveDate" name="trip-end" [(ngModel)]="selectedLeaveDate">
 
-          <div class="roomAvail" *ngIf="habitacion.disponible !== undefined"> {{ habitacion.disponible ? 'Disponible' : 'No disponible' }} </div>  <!--  Verificación de disponibilidad reactiva -->
+           <!--<div class="roomAvail" *ngIf="habitacion.disponible !== undefined"> {{ habitacion.disponible ? 'Disponible' : 'No disponible' }} </div>   <Verificación de disponibilidad reactiva -->
+            <div class="roomAvail">{{ habitacion.estado}} </div>
           <div class="rommPrice"> Precio diario {{ habitacion.precio}} por persona</div>
 
           <div class="reservationPrice">

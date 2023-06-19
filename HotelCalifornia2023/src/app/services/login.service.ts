@@ -17,6 +17,7 @@ export class LoginService {
     return this.http.post<User>('http://localhost:8000/api/auth/login/', _credentials).pipe(
       tap(userData => {
         this.currentUserData.next(userData);
+        console.log("userDataLserv", userData);
         this.currentUserLoginOn.next(true);
       })
     );

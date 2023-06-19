@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Reserva, Reservation, TipoHabitacionInterface, HabitacionInterface, ReservaInterface, ReservaPorHabitacionInterface } from '../interface/reserva.interface';
+import { Habitacion } from '../models/habitacion';
 
 @Injectable({
   providedIn: 'root'
@@ -13,9 +14,9 @@ export class ReservacionService {
 
   //GET
 
-  getListadoHabitaciones(): Observable<HabitacionInterface[]> {
+  getListadoHabitaciones(): Observable<Habitacion[]> {
     const url = `${this.reservacionUrl}habitacion/`;
-    return this.http.get<HabitacionInterface[]>(url);
+    return this.http.get<Habitacion[]>(url);
   }
 
   getHabitacionPorId(roomId: number): Observable<HabitacionInterface> {
