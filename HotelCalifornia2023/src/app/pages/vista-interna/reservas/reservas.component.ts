@@ -17,6 +17,7 @@ export class ReservasComponent implements OnInit {
   habitacionId: number = 1; // Valor de ejemplo para habitacionId
   usuarioId: number = 1; // Valor de ejemplo para usuarioId
   reservaId: number = 1; // Valor de ejemplo para reservaId
+  // lalalal comentario al cuete
 
    ngOnInit(): void {
      this.facturaService.Factura().subscribe((Factura) => {

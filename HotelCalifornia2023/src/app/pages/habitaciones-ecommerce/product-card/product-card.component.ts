@@ -3,6 +3,9 @@ import { Router } from '@angular/router';
 //import { Reserva } from '../../../interface/reserva.interface';
 import { Habitacion } from '../../../models/habitacion';
 import { ReservasComponent } from '../../vista-interna/reservas/reservas.component'; // Importa ReservasComponent
+import { ReservacionService } from '../../../services/reservacion.service';
+import { LoginService } from 'src/app/services/login.service';
+import { User } from 'src/app/services/user';
 
 @Component({
   selector: 'app-product-card',
@@ -12,6 +15,10 @@ import { ReservasComponent } from '../../vista-interna/reservas/reservas.compone
 export class ProductCardComponent implements OnInit {
   mostrarBanner: boolean = false;
   mostrarInfo: boolean = true; //solo para simular despues borrar
+  userLoginOn:boolean=false;
+  userData?:User;
+  userName: string = '';
+
 
   public misHabitaciones:Array<Habitacion>;
   public startDate: string;
@@ -20,7 +27,7 @@ export class ProductCardComponent implements OnInit {
   public selectedLeaveDate: string;
   public usuarioId: number=1; // Reemplazar con el valor correspondiente, se inicializa en 1 para que no marque error
 
-  constructor(private router: Router) {
+  constructor(private router: Router, private loginService:LoginService) {
     this.misHabitaciones =[
       new Habitacion (1, `Habitación Single o Doble`, `Equipados con microondas, pava eléctrica y heladera tipo frigobar, ideales para prepararse una merienda o un snack (no aptos para comidas más elaboradas). TV-LED. Caja de seguridad en las habitaciones. Conexión a Internet inalámbrica (Wi-Fi).`, [`Baño privado`, `Tv LED`, `Microondas`, `Pava eléctrica`, `frigobar`, `Caja de Seguridad`, `Wi-fi`], true, 3500),
       new Habitacion (2, `Habitación Triple`, `Equipados con cómodos Kitchenette de 2 x 1,8 m. aprox. con microondas, pava eléctrica y heladera tipo frigobar, ideales para prepararse una merienda o un snack (no aptos para comidas más elaboradas). TV-LED. Caja de seguridad en las habitaciones. Conexión a Internet inalámbrica (Wi-Fi). Sommiers de una plaza como camas adicionales.`, [`Baño privado`, `Tv LED`, `Microondas`, `Pava eléctrica`, `frigobar`, `Caja de Seguridad`, `Wi-fi`], true, 3200),
@@ -43,6 +50,19 @@ export class ProductCardComponent implements OnInit {
     this.leaveDate = this.formatDate(this.calculateLeaveDate()); // Inicializar con la fecha de salida
 
     // Reemplaza con el valor correcto para usuarioId
+    this.loginService.currentUserLoginOn.subscribe({
+      next:(userLoginOn)=> {
+        this.userLoginOn=userLoginOn;
+      }
+    });
+    this.loginService.currentUserData.subscribe({
+      next:(userData)=>{
+      this.userData=userData;
+      console.log(userData);
+      this.userName = userData ? userData.nombre || '' : '';
+      //this.userName = userData ? userData.nombre || '' : '';
+      }
+    })
     this.usuarioId = 1;
   }
 
@@ -87,11 +107,25 @@ export class ProductCardComponent implements OnInit {
     this.mostrarInfo = false;//solo para simular
     this.mostrarBanner = true;
   }
+
+  redirectToLogin (userLoginOn:boolean) {
+    if (!userLoginOn){
+      // Redireccionar al usuario a la ruta 'login'
+    this.router.navigate(['login']);
+    setTimeout(() => {
+      window.location.reload();
+    }, 0.001 );
+    }
+  }
+
+
   createReservation(reserva: any) {
     // Lógica para crear la reserva
     console.log('Creando reserva:', reserva);
-    // Redireccionar al usuario a la ruta 'login'
-    this.router.navigate(['login']);
+      // Llamar a redirectPage() aquí
+      console.log(this.userLoginOn);
+    this.redirectToLogin(this.userLoginOn);
+
 
 }
 }
