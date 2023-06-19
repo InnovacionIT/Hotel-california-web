@@ -1,7 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild,ViewContainerRef, } from '@angular/core';
 import { FacturaService } from 'src/app/services/factura.service';
 import { Factura, detalle, detallePago, tipoPago } from 'src/app/services/factura';
 import { ReservacionService } from '../../../services/reservacion.service';
+import { raceWith } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-reservas',
@@ -9,9 +11,17 @@ import { ReservacionService } from '../../../services/reservacion.service';
   styleUrls: ['./reservas.component.css']
 })
 export class ReservasComponent implements OnInit {
+  editarReserva : boolean = true;
+  mostrarReserva : boolean = true;
+  Editar : boolean = false;
+  editarDatos : boolean = true;
+  cambiosDatos : boolean = false;
+  monto = 19200;
+
   constructor(
     private facturaService: FacturaService,
-    private reservacionService: ReservacionService
+    private reservacionService: ReservacionService, 
+    private router : Router,
     ) { }
   factura: number = 100000037;
   habitacionId: number = 1; // Valor de ejemplo para habitacionId
@@ -134,4 +144,22 @@ export class ReservasComponent implements OnInit {
         console.log('Habitación disponible:', disponible);
       });
     }
+    
+    CancelarReserva(){
+      this.mostrarReserva = false;
     }
+    mostrarForm(){
+      this.Editar = true;
+      this.editarDatos = false
+    }
+   enviar(){
+    this.editarDatos = false;
+    this.Editar = false;
+    this.mostrarReserva = false;
+    this.cambiosDatos = true
+    setTimeout(() => {
+      this.router.navigate(['/nosotros'])}
+      ,6000);
+  }
+}
+   
