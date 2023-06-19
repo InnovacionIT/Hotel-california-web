@@ -1,67 +1,61 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaderResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { catchError, filter, map, tap } from 'rxjs/operators';
-import { Factura, detallePago, tipoPago } from './factura';
+import {  map } from 'rxjs/operators';
+import { Factura, detalle, detallePago, tipoPago } from './factura';
+
+
 @Injectable({
   providedIn: 'root'
 })
 export class FacturaService {
 
   constructor( private http : HttpClient) { }
-  FacturaUrl= ' http://localhost:3000';
+  baseUrl= 'http://localhost:8000/api/';
  
  //get 
- Factura(){
-  return this.http.get<Factura[]>('././assets/hotel.json').pipe(
-    map((fact : any) => fact.factura)
-  )
+ Factura(): Observable<Factura[]>{
+  const url = `${this.baseUrl}/factura`;
+  return this.http.get<Factura[]>(url);
  }
-   detalle() {
-    return this.http.get<tipoPago[]>('././assets/hotel.json').pipe(
-      map((data: any) => data.tipoPago)
-    )
+ detalle() {
+  const url = `${this.baseUrl}/detalle`;
+  return this.http.get<detalle[]>(url);
   }
   detallePago(): Observable <detallePago[]>{
-     return this.http.get<[]>('././assets/hotel.json').pipe(
-      map((deta : any) => deta.detalle)
-     )
-
-   }
-   tipoPago(): Observable <Object>{
-   return this.http.get('././assets/hotel.json').pipe(
-    map((tip : any) => tip.tipoPago)
-    )
+    const url = `${this.baseUrl}/detallePago`;
+  return this.http.get<detallePago[]>(url);
+}
+  tipoPago(): Observable <Object>{
+  return this.http.get('././assets/hotel.json').pipe(
+  map((tip : any) => tip.tipoPago)
+)
     }
 
 //post
 
 
-   addFactura(factura:Factura): Observable<any>{
-    const headers = {'Content-type': 'application/json'}
-    const body = JSON.stringify(factura);
-    console.log('ingresar datos' + body)
-    return this.http.post(this.FacturaUrl+'factura'+ body,{'headers': headers})
-    
+  addFactura(factura:Factura): Observable<Factura[]>{
+    const url = `${this.baseUrl}/factura`;
+    return this.http.post<any>(url, factura);
+  }    
+  addDetalle(detalle: detalle): Observable<detalle[]>{
+    const url = `${this.baseUrl}/detalle`;
+    return this.http.post<detalle[]>(url,detalle);
   }
-  addDetalle(detalle: Factura){
-    const headers = {'Content-type': 'application/json'}
-    const body = JSON.stringify(detalle);
-    console.log('ingresar datos' + body)
-    return this.http.post(this+'detalles'+ body,{'headers': headers})
+  addDetallePg(detallePago: detallePago){
+    const url = `${this.baseUrl}/detallePago`;
+    return this.http.post<any>(url, detallePago);
   }
-
-  addDetallePg(){
-    const headers = {'Content-type': 'application/json'}
-    const body = JSON.stringify(this.detallePago);
-    console.log('ingresar datos' + body)
-    return this.http.post(this+'detallePago'+body,{'headers': headers})
+  addTipoPago(tipoPago: tipoPago){
+    const url = '././assets/hotel.json';
+    return this.http.post<any>(url, this.tipoPago);
   }
 
-  addTipoPago(){
-    const headers = {'Content-type': 'application/json'}
-    const body = JSON.stringify(this.tipoPago);
-    console.log('ingresar datos' + body)
-    return this.http.post(this+'tipoPago'+body,{'headers': headers})
+  //put
+
+  crearFactura(factura : Factura): Observable<Factura>{
+    const url = `${this.baseUrl}/factura`
+    return this.http.put<any>(url, factura);
   }
 }
