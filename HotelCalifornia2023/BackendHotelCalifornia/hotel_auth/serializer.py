@@ -18,6 +18,7 @@ class UsuarioSerializer(serializers.ModelSerializer):
         return make_password(value)
     
 class UsuarioLogeadoSerializer(serializers.ModelSerializer):
+    usuarioId = serializers.PrimaryKeyRelatedField(queryset=get_user_model().objects.all())
     imagen=serializers.CharField(required=False),
     nombre=serializers.CharField(required = True),
     apellido=serializers.CharField(required = True),
@@ -31,7 +32,7 @@ class UsuarioLogeadoSerializer(serializers.ModelSerializer):
     # token=serializers.CharField(required = True)
     class Meta:
         model = get_user_model()
-        fields = ("imagen", "nombre", "apellido", "usuario", "password", "fechaDeNacimiento", "telefono", "ciudad", "is_superuser", "is_staff")
+        fields = ("imagen", "nombre", "apellido", "usuario", "password", "fechaDeNacimiento", "telefono", "ciudad", "is_superuser", "is_staff", "usuarioId")
                 #   , "token")
     def validate_password(self, value):
         return make_password(value)
