@@ -1,7 +1,7 @@
 from rest_framework import status, generics
 from rest_framework.response import Response
-from .serializers import ReservaSerializer, FacturaSerializer, DetalleSerializer, DetallePagoSerializer, HabitacionSerializer
-from GestionReservas.models import Reserva, Habitacion
+from .serializers import ReservaSerializer, FacturaSerializer, DetalleSerializer, DetallePagoSerializer, HabitacionSerializer, ServicioSerializer
+from GestionReservas.models import Reserva, Habitacion, Servicio
 from Facturacion.models import Factura, Detalle, DetallePago
 from rest_framework.views import APIView
 
@@ -165,3 +165,24 @@ class DetallePagoView(APIView):
     queryset = Reserva.objects.all()
     serializer_class = ReservaSerializer
     lookup_field = 'pk'
+
+###############################################################################################################SERVICIOS
+
+class ServicioView(APIView):
+    def get(self, request, servicioId=None,habitacionId=None):
+        if habitacionId is not None and servicioId is not None:
+            return self.get_by_id(request, habitacionId, servicioId)
+        servicios = Servicio.objects.all()
+        serializer = ServicioSerializer(servicios, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+    def get_by_id(self, request, servicioId, habitacionId):
+        servicios = tryGetById(Servicio, servicioId)
+        if servicios is None:
+            return Response({'error': 'Servicio no encontrado'}, status=status.HTTP_404_NOT_FOUND)
+        habitaciones = tryGetById(Habitacion, habitacionId)
+        if habitaciones is None:
+            return Response({'error': 'Habitación no encontrada'}, status=status.HTTP_404_NOT_FOUND)
+        serializer = ServicioSerializer(servicios)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+    
