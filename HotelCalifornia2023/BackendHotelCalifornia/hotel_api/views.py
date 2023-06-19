@@ -169,17 +169,20 @@ class DetallePagoView(APIView):
 ###############################################################################################################SERVICIOS
 
 class ServicioView(APIView):
-    def get(self, request, servicioId=None,estado=None):
-        if servicioId is not None:  
-            return self.get_by_id(request, servicioId)
+    def get(self, request, servicioId=None,habitacionId=None):
+        if habitacionId is not None and servicioId is not None:
+            return self.get_by_id(request, habitacionId, servicioId)
         servicios = Servicio.objects.all()
         serializer = ServicioSerializer(servicios, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
-    def get_by_id(self, request, servicioId):
+    def get_by_id(self, request, servicioId, habitacionId):
         servicios = tryGetById(Servicio, servicioId)
         if servicios is None:
             return Response({'error': 'Servicio no encontrado'}, status=status.HTTP_404_NOT_FOUND)
+        habitaciones = tryGetById(Habitacion, habitacionId)
+        if habitaciones is None:
+            return Response({'error': 'Habitación no encontrada'}, status=status.HTTP_404_NOT_FOUND)
         serializer = ServicioSerializer(servicios)
         return Response(serializer.data, status=status.HTTP_200_OK)
     
