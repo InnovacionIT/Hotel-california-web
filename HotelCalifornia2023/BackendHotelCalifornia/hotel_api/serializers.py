@@ -1,7 +1,6 @@
 from rest_framework import serializers
-from GestionReservas.models import Reserva, Habitacion
+from GestionReservas.models import Reserva, Habitacion, Servicio
 from Facturacion.models import Factura, Detalle, DetallePago
-
 
 class HabitacionSerializer(serializers.ModelSerializer):
     class Meta:
@@ -26,4 +25,9 @@ class DetalleSerializer(serializers.ModelSerializer):
 class DetallePagoSerializer(serializers.ModelSerializer):
     class Meta:
         model = DetallePago
+        fields = '__all__'
+
+class ServicioSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Servicio
         fields = '__all__'
