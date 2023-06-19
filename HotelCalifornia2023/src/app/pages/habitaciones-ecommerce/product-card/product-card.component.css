@@ -19,6 +19,7 @@
 .card-text{
   font-size: 1.2rem;
   height: 15rem;
+  overflow: hidden;
 }
 .btnCalifornia{
   text-transform: uppercase;
