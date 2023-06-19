@@ -1,13 +1,31 @@
 from rest_framework import status, generics
 from rest_framework.response import Response
-from .serializers import ReservaSerializer, FacturaSerializer, DetalleSerializer, DetallePagoSerializer, HabitacionSerializer, ServicioSerializer
-from GestionReservas.models import Reserva, Habitacion, Servicio
+from .serializers import ReservaSerializer, FacturaSerializer, DetalleSerializer, DetallePagoSerializer, HabitacionSerializer, ServicioSerializer, ServicioPorHabitacionSerializer
+from GestionReservas.models import Reserva, Habitacion, Servicio, ServicioPorHabitacion
 from Facturacion.models import Factura, Detalle, DetallePago
 from rest_framework.views import APIView
 
+#######################################################################################################
+# Métodos propios
+def validarFecha(serializer):
+        fechaReserva = serializer.validated_data['fechaReserva']
+        fechaIngreso = serializer.validated_data['fechaIngreso']
+        fechaEgreso = serializer.validated_data['fechaEgreso']
 
-#Habitaciones
+        if fechaEgreso <= fechaIngreso:
+            return Response({'error': 'Fecha de egreso debe ser posterior a la fecha de ingreso.'}, status=status.HTTP_400_BAD_REQUEST)
 
+        if fechaIngreso < fechaReserva:
+            return Response({'error': 'No se puede reservar una habitación para una fecha anterior a la fecha de reserva.'}, status=status.HTTP_400_BAD_REQUEST)
+        
+def tryGetById(clase, claseId):
+    try:
+        return clase.objects.get(pk=claseId)
+    except clase.DoesNotExist:
+        return None
+
+##########################################################################################################
+# Habitaciones
 class HabitacionView(APIView):
     def get(self, request, habitacionId=None,estado=None):
         if habitacionId is not None:  
@@ -32,28 +50,27 @@ class HabitacionView(APIView):
         serializer = HabitacionSerializer(habitaciones, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
+###############################################################################################################SERVICIOS
+#Servicios de Habitaciones
+
+class ServicioView(APIView):
+    def get(self, request):
+        servicios = Servicio.objects.all()
+        serializer = ServicioSerializer(servicios, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+class ServicioPorHabitacionView(APIView):
+    def get(self, request, habitacionId):
+        try:
+            servicios = ServicioPorHabitacion.objects.filter(habitacionId=habitacionId)
+            serviciosLista = [servicio.servicioId.servicio for servicio in servicios]
+            return Response(serviciosLista, status=status.HTTP_200_OK)
+        except ServicioPorHabitacion.DoesNotExist:
+            return Response({'error': 'No se encontraron servicios para la habitación especificada'}, status=status.HTTP_404_NOT_FOUND)
+        
     
-
-
 ####################################################################################################################
 #Reservas
-
-def validarFecha(serializer):
-        fechaReserva = serializer.validated_data['fechaReserva']
-        fechaIngreso = serializer.validated_data['fechaIngreso']
-        fechaEgreso = serializer.validated_data['fechaEgreso']
-
-        if fechaEgreso <= fechaIngreso:
-            return Response({'error': 'Fecha de egreso debe ser posterior a la fecha de ingreso.'}, status=status.HTTP_400_BAD_REQUEST)
-
-        if fechaIngreso < fechaReserva:
-            return Response({'error': 'No se puede reservar una habitación para una fecha anterior a la fecha de reserva.'}, status=status.HTTP_400_BAD_REQUEST)
-        
-def tryGetById(clase, claseId):
-    try:
-        return clase.objects.get(pk=claseId)
-    except clase.DoesNotExist:
-        return None
 
 class ReservaView(APIView):
     def get(self, request, reservaId=None):
@@ -95,6 +112,9 @@ class ReservaView(APIView):
             return Response({'error': 'Reserva not found'}, status=status.HTTP_404_NOT_FOUND)        
         reserva.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
+
+#######################################################################################################
+# Facturación
 
 class FacturaView(APIView):
     def get(self, request, facturaId=None):
@@ -165,24 +185,3 @@ class DetallePagoView(APIView):
     queryset = Reserva.objects.all()
     serializer_class = ReservaSerializer
     lookup_field = 'pk'
-
-###############################################################################################################SERVICIOS
-
-class ServicioView(APIView):
-    def get(self, request, servicioId=None,habitacionId=None):
-        if habitacionId is not None and servicioId is not None:
-            return self.get_by_id(request, habitacionId, servicioId)
-        servicios = Servicio.objects.all()
-        serializer = ServicioSerializer(servicios, many=True)
-        return Response(serializer.data, status=status.HTTP_200_OK)
-
-    def get_by_id(self, request, servicioId, habitacionId):
-        servicios = tryGetById(Servicio, servicioId)
-        if servicios is None:
-            return Response({'error': 'Servicio no encontrado'}, status=status.HTTP_404_NOT_FOUND)
-        habitaciones = tryGetById(Habitacion, habitacionId)
-        if habitaciones is None:
-            return Response({'error': 'Habitación no encontrada'}, status=status.HTTP_404_NOT_FOUND)
-        serializer = ServicioSerializer(servicios)
-        return Response(serializer.data, status=status.HTTP_200_OK)
-    
