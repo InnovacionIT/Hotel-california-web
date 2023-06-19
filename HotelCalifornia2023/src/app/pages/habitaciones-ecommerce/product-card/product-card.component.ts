@@ -10,12 +10,15 @@ import { ReservasComponent } from '../../vista-interna/reservas/reservas.compone
   styleUrls: ['./product-card.component.css']
 })
 export class ProductCardComponent implements OnInit {
+  mostrarBanner: boolean = false;
+  mostrarInfo: boolean = true; //solo para simular despues borrar
+
   public misHabitaciones:Array<Habitacion>;
   public startDate: string;
   public leaveDate: string;
   public selectedStartDate: string;
   public selectedLeaveDate: string;
-  public clienteId: number=1; // Reemplazar con el valor correspondiente, se inicializa en 1 para que no marque error
+  public usuarioId: number=1; // Reemplazar con el valor correspondiente, se inicializa en 1 para que no marque error
 
   constructor(private router: Router) {
     this.misHabitaciones =[
@@ -39,8 +42,8 @@ export class ProductCardComponent implements OnInit {
     this.startDate = this.formatDate(new Date()); // Inicializar con la fecha actual
     this.leaveDate = this.formatDate(this.calculateLeaveDate()); // Inicializar con la fecha de salida
 
-    // Reemplaza con el valor correcto para clienteId
-    this.clienteId = 1;
+    // Reemplaza con el valor correcto para usuarioId
+    this.usuarioId = 1;
   }
 
   calculateLeaveDate(): Date {
@@ -66,12 +69,12 @@ export class ProductCardComponent implements OnInit {
   }
 
   confirmReservation(habitacionId: number) {
-    const clienteId = this.clienteId;
+    const usuarioId = this.usuarioId;
     const habitacion = this.misHabitaciones.find(h => h.habitacionId === habitacionId);
     const fechaReserva = new Date();
 
     const reserva = {
-      clienteId: clienteId,
+      usuarioId: usuarioId,
       habitacionId: habitacionId,
       fechaReserva: fechaReserva
 
@@ -80,6 +83,9 @@ export class ProductCardComponent implements OnInit {
 
     this.createReservation(reserva);
     console.log('Reserva enviada:', reserva);
+
+    this.mostrarInfo = false;//solo para simular
+    this.mostrarBanner = true;
   }
   createReservation(reserva: any) {
     // Lógica para crear la reserva

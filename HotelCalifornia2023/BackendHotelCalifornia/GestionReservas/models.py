@@ -1,6 +1,6 @@
 from django.db import models
 from datetime import date
-from GestionUsuarios.models import Hotel, Cliente
+from GestionUsuarios.models import Hotel, Usuario
 
 # Aquí se encuentra el código de las clases TipoHabitacion, Habitacion, Reserva y ReservaPorHabitacion
 
@@ -56,7 +56,7 @@ class Reserva(models.Model):
     fechaReserva = models.DateField(default=date.today, blank=False)
     fechaIngreso = models.DateField(blank=False)
     fechaEgreso = models.DateField(blank=False)
-    clienteId = models.ForeignKey(Cliente, to_field='clienteId', on_delete=models.CASCADE)
+    usuarioId = models.ForeignKey(Usuario, to_field='usuarioId', on_delete=models.CASCADE)
     class Meta:
         db_table = "Reserva"
         verbose_name = "Reservas de habitacinoes en un hotel"
@@ -64,5 +64,5 @@ class Reserva(models.Model):
     def __unicode__(self):
         return f"Reserva {self.reservaId}"
     def __str__(self):
-        return f"Reserva del cliente {self.clienteId} el {self.fechaReserva} para la habitacion {self.habitacionId}"
+        return f"Reserva del cliente {self.usuarioId} el {self.fechaReserva} para la habitacion {self.habitacionId}"
 

@@ -15,7 +15,7 @@ export class ReservasComponent implements OnInit {
     ) { }
   factura: any;
   habitacionId: number = 1; // Valor de ejemplo para habitacionId
-  clienteId: number = 1; // Valor de ejemplo para clienteId
+  usuarioId: number = 1; // Valor de ejemplo para usuarioId
   reservaId: number = 1; // Valor de ejemplo para reservaId
 
    ngOnInit(): void {
@@ -31,10 +31,10 @@ export class ReservasComponent implements OnInit {
      this.getListadoHabitaciones();
      this.getDetalleHabitacion(this.habitacionId);
      this.verificarDisponibilidad(this.habitacionId, new Date(), new Date());
-     this.createReservation({ clienteId: this.clienteId, habitacionId: this.habitacionId, fechaReserva: new Date() });
+     this.createReservation({ usuarioId: this.usuarioId, habitacionId: this.habitacionId, fechaReserva: new Date() });
      this.getReservaPorHabitacion(this.habitacionId);
-     this.getReservaPorCliente(this.clienteId);
-     this.modificarReserva(this.reservaId, { clienteId: this.clienteId, habitacionId: this.habitacionId, fechaReserva: new Date() });
+     this.getReservaPorCliente(this.usuarioId);
+     this.modificarReserva(this.reservaId, { usuarioId: this.usuarioId, habitacionId: this.habitacionId, fechaReserva: new Date() });
      this.getReservaPorId(this.reservaId);
      this.eliminarReserva(this.reservaId);
     }

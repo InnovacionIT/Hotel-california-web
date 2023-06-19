@@ -17,7 +17,7 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body row">
-        <div class="col-8 col-sm-12">
+        <div class="col-8 col-sm-12" *ngIf="mostrarInfo">
           <img src="../../../../assets/img/room01.jpg" class="modalImg" alt="room1">
           <div class="roomServices">
             <ul class="serviceList">
@@ -25,7 +25,7 @@
             </ul>
           </div>
         </div>
-        <div class="col-4 col-sm-12 reservaForm">
+        <div class="col-4 col-sm-12 reservaForm" *ngIf="mostrarInfo" >
 
           <label for="startDate">Desde:</label>
             <input type="date" id="startDate" name="trip-start" [(ngModel)]="selectedStartDate">
@@ -40,9 +40,9 @@
             Precio Final de la Reserva desde {{selectedStartDate}} hasta {{selectedLeaveDate}}: {{ habitacion.precio * getDateDifference() }}.
           </div>
 
-          <a href="#" class="btn btnCalifornia" (click)="confirmReservation(habitacion.habitacionId)">Confirmar</a>  <!--  Llamada a la función confirmReservation con el id de la habitación -->
-
-        </div>
+          <a  class="btn btnCalifornia" (click)="confirmReservation(habitacion.habitacionId)">Confirmar</a>  <!--  Llamada a la función confirmReservation con el id de la habitación -->
+         
+        </div> <app-banner *ngIf="mostrarBanner"></app-banner><!--para mostrar banner-->
       </div>
     </div>
   </div>

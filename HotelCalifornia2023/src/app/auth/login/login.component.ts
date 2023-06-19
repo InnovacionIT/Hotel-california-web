@@ -31,7 +31,14 @@ constructor(private formBuilder:FormBuilder, private router:Router, private logi
     if(this.loginForm.valid){
       this.loginService.login(this.loginForm.value as LoginRequest).subscribe({
         next:(userData)=> {
+          console.info('login completo');
           console.log(userData);
+          if(userData.is_staff || userData.is_superuser){
+            window.location.href = 'http://localhost:8000/admin/';
+          }
+          else{
+            this.router.navigateByUrl('/nosotros');
+          }
         },
         
         error:(errorData) => {
@@ -39,8 +46,6 @@ constructor(private formBuilder:FormBuilder, private router:Router, private logi
           
         },
         complete: () => {
-          console.info('login completo');
-          this.router.navigateByUrl('/habitaciones');
           this.loginForm.reset();
         }
       });

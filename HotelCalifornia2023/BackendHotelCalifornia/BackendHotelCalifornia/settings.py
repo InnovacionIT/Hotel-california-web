@@ -12,9 +12,7 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 from pathlib import Path
 import os
 
-
 BASE_DIR = Path(__file__).resolve().parent.parent
-
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
@@ -26,7 +24,6 @@ SECRET_KEY = 'django-insecure-q%*l30w4^0bp&1o2-^7wbf4@xef$hk=m#&u=tg7&aduzu^d#$!
 DEBUG = True
 
 ALLOWED_HOSTS = []
-
 
 # Application definition
 
@@ -61,7 +58,6 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    
 ]
 
 CORS_ALLOWED_ORIGINS = [
@@ -73,7 +69,6 @@ ALLOWED_HOSTS = ['*']
 CORS_ORIGIN_WHITELIST = [
     'http://localhost:4200',
  ]
-
 
 CORS_ORIGIN_ALLOW_ALL = True
 
@@ -87,7 +82,6 @@ CORS_ALLOW_METHODS = [
 ]
 
 # CORS_ALLOW_CREDENTIALS = True
-
 
 ROOT_URLCONF = 'BackendHotelCalifornia.urls'
 
@@ -109,7 +103,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'BackendHotelCalifornia.wsgi.application'
 
-
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
@@ -130,20 +123,13 @@ DATABASES = {
         }
     }
 }
-#DATABASES = {
-#    'default': {
-#        'ENGINE': 'django.db.backends.mysql',
-#        'NAME': 'Hotel-database.sql',
-#        'USER': 'root', # Poner usuario de acceso a la base de datos.
-#        'PASSWORD': 'pass', #En mi servidor no utilizo contraseña, asi que pongo un string vacio.
-#        'HOST': 'localhost', # Donde este levantada la base de datos.
-#        'PORT': '8080', # Como el puerto es default, pongo un string vacio.
-#    }
-#}
-
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
+
+AUTH_USER_MODEL = 'GestionUsuarios.Usuario'
+
+AUTHENTICATION_BACKEND = 'django.contrib.auth.backends.ModelBackend'
 
 AUTH_PASSWORD_VALIDATORS = [
     {
@@ -160,7 +146,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/4.2/topics/i18n/
 
@@ -171,7 +156,6 @@ TIME_ZONE = 'UTC'
 USE_I18N = True
 
 USE_TZ = True
-
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
@@ -185,6 +169,3 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-
-
-
