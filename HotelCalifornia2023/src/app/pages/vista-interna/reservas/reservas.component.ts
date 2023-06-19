@@ -29,11 +29,11 @@ export class ReservasComponent implements OnInit {
       console.log(detallePago);
      });
      this.getListadoHabitaciones();
-     this.getDetalleHabitacion(this.habitacionId);
+     this.getHabitacionPorId(this.habitacionId);
      this.verificarDisponibilidad(this.habitacionId, new Date(), new Date());
      this.createReservation({ usuarioId: this.usuarioId, habitacionId: this.habitacionId, fechaReserva: new Date() });
-     this.getReservaPorHabitacion(this.habitacionId);
-     this.getReservaPorCliente(this.usuarioId);
+     /* this.getReservaPorHabitacion(this.habitacionId); */
+     /* this.getReservaPorCliente(this.usuarioId); */
      this.modificarReserva(this.reservaId, { usuarioId: this.usuarioId, habitacionId: this.habitacionId, fechaReserva: new Date() });
      this.getReservaPorId(this.reservaId);
      this.eliminarReserva(this.reservaId);
@@ -68,29 +68,29 @@ export class ReservasComponent implements OnInit {
       });
     }
 
-    getDetalleHabitacion(roomId: number): void {
-      this.reservacionService.getDetalleHabitacion(roomId).subscribe(detalle => {
+    getHabitacionPorId(roomId: number): void {
+      this.reservacionService.getHabitacionPorId(roomId).subscribe(detalle => {
         console.log('Detalle de habitación:', detalle);
       });
     }
 
     getReservaPorId(reservationId: number): void {
-      this.reservacionService.getReserva(reservationId).subscribe(reserva => {
+      this.reservacionService.getReservaPorId(reservationId).subscribe(reserva => {
         console.log('Reserva por ID:', reserva);
       });
     }
 
-    getReservaPorHabitacion(roomId: number): void {
+    /* getReservaPorHabitacion(roomId: number): void {
       this.reservacionService.getReservasPorHabitacion(roomId).subscribe(reservas => {
         console.log('Reservas por habitación:', reservas);
       });
-    }
+    } */
 
-    getReservaPorCliente(clientId: number): void {
+    /* getReservaPorCliente(clientId: number): void {
       this.reservacionService.getReservaPorCliente(clientId).subscribe(reservas => {
         console.log('Reservas por cliente:', reservas);
       });
-    }
+    } */
 
     modificarReserva(reservationId: number, updatedData: any): void {
       this.reservacionService.modificarReserva(reservationId, updatedData).subscribe(reserva => {

@@ -54,7 +54,7 @@ export class ReservacionService {
 
 
    // PUT
-  modificarReserva(reservationId: number, updatedData: Reservation): Observable<any> {
+  modificarReserva(reservaId: number, updatedData: Reservation): Observable<any> {
     const url = `${this.reservacionUrl}reserva/${reservaId}/`;
     return this.http.put<any>(url, updatedData);
   }
