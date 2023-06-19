@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 //import { Reserva } from '../../../interface/reserva.interface';
 import { Habitacion } from '../../../models/habitacion';
 import { ReservasComponent } from '../../vista-interna/reservas/reservas.component'; // Importa ReservasComponent
@@ -16,7 +17,7 @@ export class ProductCardComponent implements OnInit {
   public selectedLeaveDate: string;
   public clienteId: number=1; // Reemplazar con el valor correspondiente, se inicializa en 1 para que no marque error
 
-  constructor() {
+  constructor(private router: Router) {
     this.misHabitaciones =[
       new Habitacion (1, `Habitación Single o Doble`, `Equipados con microondas, pava eléctrica y heladera tipo frigobar, ideales para prepararse una merienda o un snack (no aptos para comidas más elaboradas). TV-LED. Caja de seguridad en las habitaciones. Conexión a Internet inalámbrica (Wi-Fi).`, [`Baño privado`, `Tv LED`, `Microondas`, `Pava eléctrica`, `frigobar`, `Caja de Seguridad`, `Wi-fi`], true, 3500),
       new Habitacion (2, `Habitación Triple`, `Equipados con cómodos Kitchenette de 2 x 1,8 m. aprox. con microondas, pava eléctrica y heladera tipo frigobar, ideales para prepararse una merienda o un snack (no aptos para comidas más elaboradas). TV-LED. Caja de seguridad en las habitaciones. Conexión a Internet inalámbrica (Wi-Fi). Sommiers de una plaza como camas adicionales.`, [`Baño privado`, `Tv LED`, `Microondas`, `Pava eléctrica`, `frigobar`, `Caja de Seguridad`, `Wi-fi`], true, 3200),
@@ -73,6 +74,8 @@ export class ProductCardComponent implements OnInit {
       clienteId: clienteId,
       habitacionId: habitacionId,
       fechaReserva: fechaReserva
+
+
     };
 
     this.createReservation(reserva);
@@ -81,6 +84,8 @@ export class ProductCardComponent implements OnInit {
   createReservation(reserva: any) {
     // Lógica para crear la reserva
     console.log('Creando reserva:', reserva);
+    // Redireccionar al usuario a la ruta 'login'
+    this.router.navigate(['login']);
 
 }
 }
