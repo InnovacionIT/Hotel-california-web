@@ -51,5 +51,5 @@ class DetallePago(models.Model):
     def __unicode__(self):
         return self.detallePagoId
     def __str__(self) -> str:
-        return f"El detalle de pago correspondiente a la factura {self.facturaId} con un porcentaje de pago del {self.porcentajePago} en {self.tipoPagoId}"
+        return f"El detalle de pago correspondiente a la factura {self.facturaId} con un porcentaje de pago del {self.porcentajePago} en {self.tipoPago}."
     
