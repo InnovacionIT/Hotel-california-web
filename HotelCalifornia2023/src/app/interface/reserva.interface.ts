@@ -36,3 +36,8 @@ export interface ReservaPorHabitacionInterface {
   habitacionId: number;
   reservaId: number;
 }
+export interface ServicioInterface{
+  habitacionId: number;
+  sevicioId: number;
+  servicio:string;
+}

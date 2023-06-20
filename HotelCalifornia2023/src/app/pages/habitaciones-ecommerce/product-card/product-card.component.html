@@ -5,6 +5,7 @@
   <div class="card-body">
     <h4 class="card-title"> {{habitacion.tipoHabitacion}} </h4>
     <div class="roomServices card-text">
+      {{ obtenerServicios(habitacion) }}
       <ul class="serviceList">
         <li class="service" *ngFor="let servicio of habitacion.servicios">{{ servicio }}</li> <!-- Mapeo del array de servicios -->
       </ul>

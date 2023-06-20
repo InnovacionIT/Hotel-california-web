@@ -6,7 +6,7 @@ import { ReservasComponent } from '../../vista-interna/reservas/reservas.compone
 import { ReservacionService } from '../../../services/reservacion.service';
 import { LoginService } from 'src/app/services/login.service';
 import { User } from 'src/app/services/user';
-import { Reserva, Reservation, TipoHabitacionInterface, HabitacionInterface, ReservaInterface, ReservaPorHabitacionInterface } from 'src/app/interface/reserva.interface';
+import { Reserva, Reservation, TipoHabitacionInterface, HabitacionInterface, ReservaInterface, ReservaPorHabitacionInterface, ServicioInterface } from 'src/app/interface/reserva.interface';
 
 @Component({
   selector: 'app-product-card',
@@ -18,10 +18,9 @@ export class ProductCardComponent implements OnInit {
   mostrarInfo: boolean = true; //solo para simular despues borrar
   userLoginOn:boolean=false;
   userData?:User;
-  userEmail: string ="";
   userId:number=0;
 
-
+  public misServiciosPorHabitacion:Array<ServicioInterface>=[];
   public misHabitaciones:Array<Habitacion>=[];
   public startDate: string;
   public leaveDate: string;
@@ -62,7 +61,7 @@ export class ProductCardComponent implements OnInit {
       next:(userData)=>{
       this.userData=userData;
       console.log("userData", userData);
-      this.userEmail = userData.usuario;
+      //this.userEmail = userData.usuario;
       this.userId=userData.usuarioId
       //this.userName = userData ? userData.nombre || '' : '';
       console.log("userId", this.userId);
@@ -72,14 +71,38 @@ export class ProductCardComponent implements OnInit {
     this.reservacionService.getListadoHabitaciones().subscribe(
       habitaciones => {
         this.misHabitaciones = habitaciones;
-        console.log(this.misHabitaciones);
+        console.log("misHabitaciones", this.misHabitaciones);
+        //new Habitacion (1, `Habitación Single o Doble`, `Equipados con microondas, pava eléctrica y heladera tipo frigobar, ideales para prepararse una merienda o un snack (no aptos para comidas más elaboradas). TV-LED. Caja de seguridad en las habitaciones. Conexión a Internet inalámbrica (Wi-Fi).`, [`Baño privado`, `Tv LED`, `Microondas`, `Pava eléctrica`, `frigobar`, `Caja de Seguridad`, `Wi-fi`], true, 3500),
+
       },
       error => {
         console.error('Error al obtener las habitaciones:', error);
       }
     );
 
+   /*  this.reservacionService.getServiciosPorHabitacionId(habitacion.habitacionId).subscribe(
+      servicios => {
+        habitacion.servicios = servicios;
+      },
+      error => {
+        console.error('Error al obtener los servicios:', error);
+      }
+    ); */
+
+
   }
+
+  obtenerServicios(habitacion: Habitacion) {
+    this.reservacionService.getServiciosPorHabitacionId(habitacion.habitacionId).subscribe(
+      servicios => {
+        habitacion.servicios = servicios;
+      },
+      error => {
+        console.error('Error al obtener los servicios:', error);
+      }
+    );
+  }
+
 
   calculateLeaveDate(): Date {
     const startDate = new Date(this.startDate);
