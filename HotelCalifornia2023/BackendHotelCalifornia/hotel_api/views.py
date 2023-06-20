@@ -1,6 +1,6 @@
 from rest_framework import status, generics
 from rest_framework.response import Response
-from .serializers import ReservaSerializer, FacturaSerializer, DetalleSerializer, DetallePagoSerializer, HabitacionSerializer, ServicioSerializer, ServicioPorHabitacionSerializer
+from .serializers import ReservaSerializer, FacturaSerializer, DetalleSerializer, DetallePagoSerializer, HabitacionSerializer, ServicioSerializer, ImagenSerializer
 from GestionReservas.models import Reserva, Habitacion, Servicio, ServicioPorHabitacion
 from Facturacion.models import Factura, Detalle, DetallePago
 from rest_framework.views import APIView
@@ -34,7 +34,15 @@ class HabitacionView(APIView):
             return self.get_by_estado(request, estado)
         habitaciones = Habitacion.objects.all()
         serializer = HabitacionSerializer(habitaciones, many=True)
-        return Response(serializer.data, status=status.HTTP_200_OK)
+        data = serializer.data
+        # Obtener la imagen para cada habitación
+        for habitacion_data in data:
+            habitacion = Habitacion.objects.get(habitacionId=habitacion_data['habitacionId'])
+            imagenes = habitacion.imagenes.all()
+            imagen_serializer = ImagenSerializer(imagenes, many=True)
+            habitacion_data['imagenes'] = imagen_serializer.data
+
+        return Response(data, status=status.HTTP_200_OK)
 
     def get_by_id(self, request, habitacionId):
         habitaciones = tryGetById(Habitacion, habitacionId)
