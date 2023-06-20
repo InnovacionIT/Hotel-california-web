@@ -41,11 +41,5 @@ testem.log
 .DS_Store
 Thumbs.db
 
-/BackendHotelCalifornia/__pycache__/*.pyc
-/Facturacion/__pycache__
-/GestionReservas/__pycache__
-/GestionUsuarios/__pycache__
-/hotel_api/__pycache__
-/hotel_auth/__pycache__
-
-
+*.pyc
+**/__pycache__/*.pyc
