@@ -29,6 +29,6 @@ WEB EMPRESARIAL (realizada en Wordpress para el módulo "CMS" o "SISTEMA DE GEST
 
 WEB PROYECTO FULLSTACK (realizada en HTML, CSS y TypeScript, haciendo hincapié en el Framework Frontend ANGULAR // realizada en Python y Django -Backend-): [Visitar sitio web aquí](https://hcalifornia.innovacionit.tech/)
 
-VIDEO PRESENTACION DE 10 MINUTOS DEL FINAL DEL PROYECTO [Ver video aquí]([https://www.youtube.com/watch?v=2MyMYlJDEnQ&t=48s])
+VIDEO PRESENTACION DE 10 MINUTOS DEL FINAL DEL PROYECTO [Ver video aquí]([(https://youtu.be/zaS4zlvn4og)])
 
-GUIA INSTRUCCIONES SE ENCUENTRA EN INSTRUCCIONES-DEPLOY.TXT
+GUIA INSTRUCCIONES SE ENCUENTRA EN INSTRUCCIONES-DEPLOY.TXT  [Ingresar al documento de Instrucciones aquí]([https://github.com/fertadeo/2023-Fullstack-Proyecto-Integrador/blob/main/Instrucciones-deploy.txt])
