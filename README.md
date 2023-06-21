@@ -1,6 +1,6 @@
 ![Banner ISPC](https://github.com/fertadeo/2023-Fullstack-Proyecto-Integrador/blob/main/Imagenes-README.md/banner-ispc.png)
 
-# 2022-Fullstack-Proyecto-Integrador
+# 2023-Fullstack-Proyecto-Integrador
 Trabajo realizado para el módulo Proyecto Integrador del ISPC cohorte 2022, año 2023 (Segundo año)
 
 A continuación se hará una descripción y calificación de las carpetas del repositorio para un mejor entendimiento del mismo.
