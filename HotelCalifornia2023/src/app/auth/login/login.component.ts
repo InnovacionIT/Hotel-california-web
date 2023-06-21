@@ -12,11 +12,11 @@ import { LoginRequest } from 'src/app/services/loginRequest';
 export class LoginComponent implements OnInit {
 
   loginForm=this.formBuilder.group({
-    usuario:['camillosoy@gmail.com', [Validators.required, Validators.email]],
+    usuario:['', [Validators.required, Validators.email]],
     password:['' ,Validators.required]
   })
 
-  
+
 constructor(private formBuilder:FormBuilder, private router:Router, private loginService:LoginService) { }
 
   ngOnInit(): void {
@@ -31,25 +31,30 @@ constructor(private formBuilder:FormBuilder, private router:Router, private logi
     if(this.loginForm.valid){
       this.loginService.login(this.loginForm.value as LoginRequest).subscribe({
         next:(userData)=> {
-          console.log(userData);
+          console.info('login completo');
+          console.log("userDataLogin", userData);
+          if(userData.is_staff || userData.is_superuser){
+            window.location.href = 'http://localhost:8000/admin/';
+          }
+          else{
+            this.router.navigateByUrl('/nosotros');
+          }
         },
-        
+
         error:(errorData) => {
           console.error(errorData);
-          
+
         },
         complete: () => {
-          console.info('login completo');
-          this.router.navigateByUrl('/habitaciones');
           this.loginForm.reset();
         }
       });
-      
+
     }
     else{
       this.loginForm.markAllAsTouched();
       alert('error al ingresar los datos')
     }
-  }  
+  }
 }
 

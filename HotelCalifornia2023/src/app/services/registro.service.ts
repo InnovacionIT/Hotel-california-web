@@ -8,14 +8,15 @@ import { RegistroRequest } from './registroRequest';
 })
 export class RegistroService {
   constructor(private http: HttpClient) { }
-  private url = 'assets/clientes.json';
+  // private url = 'assets/clientes.json';
+  private url = 'http://localhost:8000/api/auth'
 
-  getData(): Observable<any> {
-    return this.http.get(this.url);
+
+  agregarUsuario(data: RegistroRequest): Observable<RegistroRequest> {
+    return this.http.post<RegistroRequest>(this.url + '/singup/', data);
   }
 
   postData(data:RegistroRequest): Observable<any>  {
     return this.http.post<any>(this.url, data );
   }
-
 }

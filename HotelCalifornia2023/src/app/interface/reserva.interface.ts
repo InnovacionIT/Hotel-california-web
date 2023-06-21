@@ -7,7 +7,7 @@ export interface Reserva {
 export interface Reservation {
   reservaId: number;
   fechaReserva: Date;
-  clienteId: number;
+  usuarioId: number;
   habitacionId: number;
   // Otras propiedades según la información necesaria de una reserva
 }
@@ -27,7 +27,7 @@ export interface HabitacionInterface {
 export interface ReservaInterface {
   reservaId: number;
   fechaReserva: Date;
-  clienteId: number;
+  usuarioId: number;
 }
 export interface ReservaPorHabitacionInterface {
   reservaHabitacionId: number;
@@ -35,4 +35,9 @@ export interface ReservaPorHabitacionInterface {
   fechaEgreso: Date;
   habitacionId: number;
   reservaId: number;
+}
+export interface ServicioInterface{
+  habitacionId: number;
+  sevicioId: number;
+  servicio:string;
 }

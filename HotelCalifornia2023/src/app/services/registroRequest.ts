@@ -1,10 +1,11 @@
 export interface RegistroRequest {
-  id?: string;
-  nombre: string;
-  apellido: string;
-  email: string;
-  telefono: string;
+  usuarioId?: number;
+  imagen?: any;
+  nombre: any;
+  apellido: any;
+  usuario: any;
   password: any;
-  ciudad: string;
-  fechaNacimiento: string;
+  fechaDeNacimiento: any;
+  telefono: any;
+  ciudad: any;
 }
